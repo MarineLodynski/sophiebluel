@@ -60,9 +60,9 @@ console.log(projects.length);
 const gallery = document.querySelector(".gallery");
 let index = 0;
 
-//Apparition images dans le bon ordre
+//Apparition projets dans le bon ordre
 for (let i =0; i < projects.length; i++) {
-	const figure = document.createElement("figure");
+	let figure = document.createElement("figure");
 	gallery.appendChild(figure);
 	const imageElement = document.createElement("img");
 	img = projects;
@@ -71,6 +71,7 @@ for (let i =0; i < projects.length; i++) {
 	figure.appendChild(figcaption);
 	imageElement.src='./assets/images/' + projects[index].image;
 	figcaption.innerHTML = projects[index].tagLine;
+
 	if (index < projects.length - 1) {
 		index++;
 	}
@@ -78,12 +79,19 @@ for (let i =0; i < projects.length; i++) {
 
 
 
+// Apparition filtres pour les travaux
+const buttons = ['Tous', 'Objets', 'Appartements', 'Hôtels & restaurants'];
+console.log(buttons.length);
+for (let i=0; i < buttons.length; i++) {
+	const filters = document.getElementsByClassName(".buttons");
+	let button = document.createElement("button");
+	filters.appendChild(button);
+
+	if (index < buttons.length - 1) {
+		index++;
+	}
+}
 
 
 
 
-
-
-
-
-// Filtres travaux
