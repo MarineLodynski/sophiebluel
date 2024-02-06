@@ -55,22 +55,30 @@ const projects = [
 	}
 ]
 
+console.log(projects.length);
+
 const gallery = document.querySelector(".gallery");
 let index = 0;
-//for (let i =0; i < projects.length; i++) {
+
+//Apparition images dans le bon ordre
+for (let i =0; i < projects.length; i++) {
 	const figure = document.createElement("figure");
 	gallery.appendChild(figure);
-//}
+	const imageElement = document.createElement("img");
+	img = projects;
+	const figcaption = document.createElement("figcaption");
+	figure.appendChild(imageElement);
+	figure.appendChild(figcaption);
+	imageElement.src='./assets/images/' + projects[index].image;
+	figcaption.innerHTML = projects[index].tagLine;
+	if (index < projects.length - 1) {
+		index++;
+	}
+}
 
 
 
-const imageElement = document.createElement("img");
-img = projects;
-const figcaption = document.createElement("figcaption");
-figure.appendChild(imageElement);
-figure.appendChild(figcaption);
-imageElement.src='./assets/images/' + projects[index].image;
-figcaption.innerHTML = projects[index].tagLine;
+
 
 
 
