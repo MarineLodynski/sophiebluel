@@ -1,10 +1,10 @@
 // Récupération travaux
-fetch("http://localhost:5678/api-docs/");
 async function RecupTravaux() {
-    const reponse = await fetch("http://localhost:5678/api-docs/");
+    const reponse = await fetch("http://localhost:5678/api/works");
     const project = await reponse.json();
-    console.log(project);
+    console.log(JSON.stringify(project));
 }
+RecupTravaux();
 
 
 //Variables projets
@@ -120,20 +120,23 @@ for (let i =0; i < projects.length; i++) {
 //Filtres pour les travaux
 let filters = document.querySelector(".filters");
 let filter = document.querySelectorAll(".filters button");
-//document.addEventListener('DOMContentLoaded', function() {
-	
-	filters.addEventListener("click", function(){
-		console.log("Vous avez cliqué sur un filtre !");
-		let tag = filter.id;
-		for(let imageElement of ".gallery img"){
-			//imageElement.classes.replace(".selected", ".not-selected");
 
-			if(tag in imageElement.dataset || tag === "all"){
-				imageElement.classes.replace(".not-selected", ".selected");
-			}
-		}
-	});
-//});
+	
+filters.addEventListener("click", function(){
+	console.log("Vous avez cliqué sur un filtre !");
+	let tag = filter.id;
+	//for(let i =0; i < projects.length; i++){
+		//imageElement.classList.remove(".selected");
+
+		//if(tag === imageElement.dataset.id || tag === "all"){
+			//imageElement.classList.add(".selected");
+		//}
+	//}
+
+
+
+});
+
 
 
 

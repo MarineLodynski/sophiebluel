@@ -214,6 +214,17 @@ margin: auto;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
+
+#connexion:active {
+	background-color: black;
+}
+
+#mdp{
+	text-align: center;
+	text-decoration: underline;
+}
+
+
 input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
