@@ -168,6 +168,16 @@ li:hover {
 
 }
 
+
+.selected {
+	overflow:auto;
+}
+
+.not-selected {
+	overflow:hidden;
+}
+
+
 .gallery figcaption{
 	padding-top:10px;
 }
