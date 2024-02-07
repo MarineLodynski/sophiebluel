@@ -11,47 +11,58 @@ async function RecupTravaux() {
 const projects = [
 	{
 		"image":"abajour-tahina.png",
+		"alt":"Abat-jour Tahina",
 		"tagLine":"Abat-jour Tahina"
 	},
 	{
 		"image":"appartement-paris-v.png",
+		"alt":"Appartement Paris V",
 		"tagLine":"Appartement Paris V"
     },
 	{
 		"image":"restaurant-sushisen-londres.png",
+		"alt":"Restaurant Sushisen - Londres",
 		"tagLine":"Restaurant Sushisen - Londres"
 	},
 	{
 		"image":"la-balisiere.png",
-		"tagLine":" Villa “La Balisiere” - Port Louis"
+		"alt":"Villa “La Balisiere” - Port Louis",
+		"tagLine":" Villa “La Balisière” - Port Louis"
 	},
     {
 		"image":"structures-thermopolis.png",
+		"alt":"Structures Thermopolis",
 		"tagLine":"Structures Thermopolis"
 	},
 	{
 		"image":"appartement-paris-x.png",
+		"alt":"Appartement Paris X",
 		"tagLine":"Appartement Paris X"
 	},
 	{
 		"image":"le-coteau-cassis.png",
+		"alt":"Pavillon “Le coteau” - Cassis",
 		"tagLine":"Pavillon “Le coteau” - Cassis"
 	},
 	{
 		"image":"villa-ferneze.png",
+		"alt":"Villa Ferneze - Isola d’Elba",
 		"tagLine":"Villa Ferneze - Isola d’Elba"
 	},
     {
 		"image":"appartement-paris-xviii.png",
+		"alt":"Appartement Paris XVIII",
 		"tagLine":"Appartement Paris XVIII"
 	},
 	{
 		"image":"bar-lullaby-paris.png",
+		"alt":"Bar “Lullaby” - Paris",
 		"tagLine":"Bar “Lullaby” - Paris"
 	},
 	{
 		"image":"hotel-first-arte-new-delhi.png",
-		"tagLine":"Hotel First Arte - New Delhi"
+		"alt":"Hotel First Arte - New Delhi",
+		"tagLine":"Hôtel First Arte - New Delhi"
 	}
 ]
 
@@ -70,6 +81,7 @@ for (let i =0; i < projects.length; i++) {
 	figure.appendChild(imageElement);
 	figure.appendChild(figcaption);
 	imageElement.src='./assets/images/' + projects[index].image;
+	imageElement.alt=projects[index].alt;
 	figcaption.innerHTML = projects[index].tagLine;
 
 	if (index < projects.length - 1) {
@@ -80,17 +92,17 @@ for (let i =0; i < projects.length; i++) {
 
 
 // Apparition filtres pour les travaux
-const buttons = ['Tous', 'Objets', 'Appartements', 'Hôtels & restaurants'];
-console.log(buttons.length);
-for (let i=0; i < buttons.length; i++) {
-	const filters = document.getElementsByClassName(".buttons");
-	let button = document.createElement("button");
-	filters.appendChild(button);
+//const buttons = ['Tous', 'Objets', 'Appartements', 'Hôtels & restaurants'];
+//console.log(buttons.length);
+//for (let i=0; i < buttons.length; i++) {
+	//const filters = document.getElementsByClassName(".buttons");
+	//let button = document.createElement("button");
+	//filters.appendChild(button);
 
-	if (index < buttons.length - 1) {
-		index++;
-	}
-}
+	//if (index < buttons.length - 1) {
+		//index++;
+	//}
+//}
 
 
 
