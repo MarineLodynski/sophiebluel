@@ -26,7 +26,82 @@ fetch("http://localhost:5678/api/works")
 		figure.appendChild(figcaption);
 	}
 
+	//Filtres pour les travaux
+	//const filter = document.querySelector("button");
+
+	//filter.addEventListener("click", function () {
+		//console.log("Vous avez cliqué sur un filtre !");
+   		
+		
+	//});
+
+	const categoryname = users.filter(user => user.category.name === "Appartements");
+	console.log(categoryname);
+
+	//Fonction slides et boutons
+	function FilterButton(button) {
+		if (button == 'all') {
+			if (index < slides.length - 1) {
+				index++;
+			} else {
+			index = 0;
+			}
+		} if (button == 'objects') {
+			if (index > 0) {
+				index--;
+			} else {
+				index =  slides.length -1;
+			}
+		}
+		} if (button == 'appartments') {
+			if (index > 0) {
+				index--;
+			} else {
+				index =  slides.length -1;
+			}
+		} if (button == 'hr') {
+			if (index > 0) {
+				index--;
+			} else {
+				index =  slides.length -1;
+			}
+		}
+		
+		
+	});
+
+}); 
+
+//EventListeners des boutons
+const buttonAll = document.querySelector('.all');
+buttonAll.addEventListener('click', function(event_one) {
+	console.log("Vous avez cliqué sur le bouton 'Tous' !");
+	FilterButton('all')
 });
+
+const buttonObjects= document.querySelector('.objects');
+buttonObjects.addEventListener('click', function(event_two) {
+	console.log("Vous avez cliqué sur le bouton 'Objets' !");
+	FilterButton('objects')
+});
+	
+
+const buttonAppartments = document.querySelector('.appartements');
+buttonAppartments.addEventListener('click', function(event_three) {
+	console.log("Vous avez cliqué sur le bouton 'Appartements' !");
+	FilterButton('appartments')
+	  
+});
+
+const buttonHR = document.querySelector('.hr');
+buttonHR.addEventListener('click', function(event_four) {
+	console.log("Vous avez cliqué sur le bouton 'Hôtels & Restaurants' !");
+	FilterButton('hr')
+	  
+});
+
+
+
 
 
 //Variables projets
@@ -65,9 +140,6 @@ fetch("http://localhost:5678/api/works")
 		//index++;
 	//}
 //}
-
-
-
 
 	
 //filters.addEventListener("click", function(){
