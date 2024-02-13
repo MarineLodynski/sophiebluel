@@ -1,9 +1,15 @@
 // Récupération travaux
+
+
 //async function RecupTravaux() {
     //const reponse = await fetch("http://localhost:5678/api/works");
-    //const project = await reponse.json();
-    //console.log(JSON.stringify(project));
-	//for(const user of project) {
+    //const projects = await reponse.json();
+    //console.log(JSON.stringify(projects));
+//}
+//RecupTravaux();
+
+//async function AjoutTravaux() {
+	//for(const user of projects){
 		//let figure = document.createElement("figure");
 		//const imageElement = document.createElement("img");
 		//const figcaption = document.createElement("figcaption");
@@ -13,20 +19,24 @@
 		//figure.appendChild(imageElement);
 		//figure.appendChild(figcaption);
 	//}
+	//RecupTravaux();
 //}
-//RecupTravaux();
-
+//AjoutTravaux();
 
 const gallery = document.querySelector(".gallery");
+fetch("http://localhost:5678/api/works", {
+	method: "GET",
+	headers: { "Content-Type": "application/json" },
+})
 
-
-fetch("http://localhost:5678/api/works")
 .then((response) => {
 	return response.json();
 })
 
 .then ((users) => {
 	console.log(users)
+
+	//Ajout des travaux dans la galerie
 	for(const user of users) {
 		let figure = document.createElement("figure");
 		const imageElement = document.createElement("img");
@@ -40,11 +50,22 @@ fetch("http://localhost:5678/api/works")
 	}
 
 	//Filtres pour les travaux
-	
-	const categoryname = users.filter(user => user.category.name === "Objets");
-	console.log(categoryname);
+	function FilterWorks() {
+		const categoryall = users.filter(user => user.category.name === "Tous");
+		console.log(categoryall);
+		const categoryobjects = users.filter(user => user.category.name === "Objets");
+		console.log(categoryobjects);
+		const categoryappartments = users.filter(user => user.category.name === "Appartements");
+		console.log(categoryappartments);
+		const categoryhr = users.filter(user => user.category.name === "Hotels & restaurants");
+		console.log(categoryhr);
+	}
+	FilterWorks();
 
-	//const filters = document.querySelectorAll(".filters");
+}); 
+
+
+//const filters = document.querySelectorAll(".filters");
 	//for(let filter of filters){
 			//filters.addEventListener("click", function(){
 			//console.log("Vous avez cliqué sur un filtre !");
@@ -93,11 +114,6 @@ fetch("http://localhost:5678/api/works")
 	//});
 
 	//EventListeners des boutons
-	
-}); 
-
-
-
 
 	
 //filters.addEventListener("click", function(){
