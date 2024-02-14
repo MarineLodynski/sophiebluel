@@ -47,91 +47,63 @@ fetch("http://localhost:5678/api/works", {
 		gallery.appendChild(figure);
 		figure.appendChild(imageElement);
 		figure.appendChild(figcaption);
+		
+	
 	}
 
 	//Filtres pour les travaux
-	function FilterWorks() {
-		const categoryall = users.filter(user => user.category.name === "Tous");
-		console.log(categoryall);
-		const categoryobjects = users.filter(user => user.category.name === "Objets");
-		console.log(categoryobjects);
-		const categoryappartments = users.filter(user => user.category.name === "Appartements");
-		console.log(categoryappartments);
-		const categoryhr = users.filter(user => user.category.name === "Hotels & restaurants");
-		console.log(categoryhr);
-	}
-	FilterWorks();
+	
+	
 
-}); 
+	function FilterButton() {
+		//const categoryall = users.filter(user => user.category.name === "Tous");
+		//console.log(categoryall);
+		//const categoryobjects = users.filter(user => user.category.name === "Objets");
+		//console.log(categoryobjects);
+		//const categoryappartments = users.filter(user => user.category.name === "Appartements");
+		//console.log(categoryappartments);
+		//const categoryhr = users.filter(user => user.category.name === "Hotels & restaurants");
+		//console.log(categoryhr);
 
-
-//const filters = document.querySelectorAll(".filters");
-	//for(let filter of filters){
-			//filters.addEventListener("click", function(){
-			//console.log("Vous avez cliqué sur un filtre !");
-			//let tag = categoryname;
-			//for(let i =0; i < users.length; i++){
-				//imageElement.classList.remove(".selected");
-
-				//if(tag === imageElement.category.name || tag === "all"){
-					//imageElement.classList.add(".selected");
-				//}
-			//}
-		//})
-
-	//}
-
-	//Fonction slides et boutons
-	//function FilterButton(button) {
-		//if (button == 'all') {
-			//if (index < slides.length - 1) {
-				//index++;
-			//} else {
-			//index = 0;
-			//}
-		//} if (button == 'objects') {
-			//if (index > 0) {
-				//index--;
-			//} else {
-				//index =  slides.length -1;
-			//}
-		//}
-		//} if (button == 'appartments') {
-			//if (index > 0) {
-			//	index--;
-			//} else {
-			//	index =  slides.length -1;
-			//}
-		//} if (button == 'hr') {
-			//if (index > 0) {
-				//index--;
-			//} else {
-				//index =  slides.length -1;
-			//}
-		//}
+		const categories = users.map(user => user.categoryId);
+		console.log(categories);
 		
-		
-	//});
 
-	//EventListeners des boutons
+		//switch(categoryId){
+			//case 1:
+				//users.categoryId === 1
+				//break;
+			//case 2:
+				//users.categoryId === 2
+				//break;
+			//case 3:
+				//users.categoryId === 3
+				//break;
+			//default:
+				//;
+		//}
+
+		//const filteredImages = figure.filter(function(filter) {
+			//return users.categoryId === 2; // Remplacez 1 par la categoryId que vous souhaitez filtrer
+		//});
+		//console.log(filteredImages);
+	};
+	
+	
+
+	let listeBTNFilters = document.querySelectorAll(".filters");
+		for(let index = 0; index < listeBTNFilters.length; index++) {
+			listeBTNFilters[index].addEventListener("click", function(event) {
+				console.log('Vous avez cliqué !');
+				FilterButton();
+			})
+		}
+});
+
+
 
 	
-//filters.addEventListener("click", function(){
-	//console.log("Vous avez cliqué sur un filtre !");
-	//let tag = filter.id;
-	//for(let i =0; i < projects.length; i++){
-		//imageElement.classList.remove(".selected");
-
-		//if(tag === imageElement.dataset.id || tag === "all"){
-			//imageElement.classList.add(".selected");
-		//}
-	//}
-
-
-
-//});
-
-
+	
 
 
 
