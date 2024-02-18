@@ -11,8 +11,6 @@ async function RecupTravaux() {
 	})
 
 	.then ((users) => {
-		//console.log(users)
-
 		//Ajout des travaux dans la galerie
 		for(const user of users) {
 			let figure = document.createElement("figure");
@@ -27,7 +25,7 @@ async function RecupTravaux() {
 		}
 
 	
-		let listeBTNFilters = document.querySelectorAll(".filters");
+		const listeBTNFilters = document.querySelectorAll(".filters");
 		for(let index = 0; index < listeBTNFilters.length; index++) {
 			listeBTNFilters[index].addEventListener("click", function(event) {
 				console.log('Vous avez cliqué !');
@@ -35,41 +33,41 @@ async function RecupTravaux() {
 			})
 		}
 
-		function FilterButton() {
-			//const categoryall = users.filter(user => user.category.name === "Tous");
-			//console.log(categoryall);
-			//const categoryobjects = users.filter(user => user.category.name === "Objets");
-			//console.log(categoryobjects);
-			//const categoryappartments = users.filter(user => user.category.name === "Appartements");
-			//console.log(categoryappartments);
-			//const categoryhr = users.filter(user => user.category.name === "Hotels & restaurants");
-			//console.log(categoryhr);
-	
-			const categories = users.map(user => user.categoryId);
-			console.log(categories);
+		//function FilterButton() {
+			//const categories = users.map(user => user.categoryId);
+			//console.log(categories);
 			
 	
-			//switch(categoryId){
-				//case 1:
-					//users.categoryId === 1
-					//break;
-				//case 2:
-					//users.categoryId === 2
-					//break;
-				//case 3:
-					//users.categoryId === 3
-					//break;
-				//default:
-					//;
-			//}
-	
-			//const filteredImages = figure.filter(function(filter) {
-				//return users.categoryId === 2; // Remplacez 1 par la categoryId que vous souhaitez filtrer
-			//});
-			//console.log(filteredImages);
-		};
+			
+		//};
+
+		//EventListeners des boutons
+		
+		//let button = document.querySelector("button");
+		//listeBTNFilters.appendChild(button);
+		document.addEventListener('DOMContentLoaded', function() {
+			const buttonAll = document.querySelector('.all');
+			buttonAll.addEventListener('click', function(id) {
+				console.log("Vous avez cliqué sur le bouton 'Tous' !");
+			});
+
+			const buttonObjects= document.querySelector('.objects');
+			buttonObjects.addEventListener('click', function(id) {
+				console.log("Vous avez cliqué sur le bouton 'Objets' !");
+			});
 
 
+			const buttonAppartments = document.querySelector('.appartements');
+			buttonAppartments.addEventListener('click', function(id) {
+				console.log("Vous avez cliqué sur le bouton 'Appartements' !");
+			});
+
+			const buttonHR = document.querySelector('.hr');
+			buttonHR.addEventListener('click', function(id) {
+				console.log("Vous avez cliqué sur le bouton 'Hôtels & Restaurants' !");
+			});
+
+		});
 
 
 	});
@@ -79,17 +77,4 @@ async function RecupTravaux() {
 
 }
 RecupTravaux();
-
-
-
-
-
-
-
-
-
-
-
-
-
 
