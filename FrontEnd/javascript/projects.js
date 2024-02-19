@@ -10,64 +10,62 @@ async function RecupTravaux() {
 		return response.json();
 	})
 
-	.then ((users) => {
+	.then ((works) => {
+		console.log(works);
 		//Ajout des travaux dans la galerie
-		for(const user of users) {
+		for(const work of works) {
 			let figure = document.createElement("figure");
 			const imageElement = document.createElement("img");
 			const figcaption = document.createElement("figcaption");
-			imageElement.src=user.imageUrl;
-			imageElement.alt=user.title;
-			figcaption.innerText=user.title;
+			imageElement.src=work.imageUrl;
+			imageElement.alt=work.title;
+			figcaption.innerText=work.title;
 			gallery.appendChild(figure);
 			figure.appendChild(imageElement);
 			figure.appendChild(figcaption);
 		}
 
-	
-		const listeBTNFilters = document.querySelectorAll(".filters");
-		for(let index = 0; index < listeBTNFilters.length; index++) {
-			listeBTNFilters[index].addEventListener("click", function(event) {
-				console.log('Vous avez cliqué !');
-				FilterButton();
-			})
-		}
+		const workschoseni =  works.filter(function(work) {
+			return work.categoryId === 1;
+		});
+		console.log(workschoseni);
 
-		//function FilterButton() {
-			//const categories = users.map(user => user.categoryId);
-			//console.log(categories);
-			
-	
-			
-		//};
+		const workschosenii =  works.filter(function(work) {
+			return work.categoryId === 2;
+		});
+		console.log(workschosenii);
+
+		const workschoseniii =  works.filter(function(work) {
+			return work.categoryId === 3;
+		});
+		console.log(workschoseniii);
+
+		
 
 		//EventListeners des boutons
-		
-		//let button = document.querySelector("button");
-		//listeBTNFilters.appendChild(button);
-		document.addEventListener('DOMContentLoaded', function() {
-			const buttonAll = document.querySelector('.all');
-			buttonAll.addEventListener('click', function(id) {
+		//document.addEventListener('DOMContentLoaded', function() {
+			const buttonone = document.getElementById('all');
+			buttonone.addEventListener('click', function(event_all) {
 				console.log("Vous avez cliqué sur le bouton 'Tous' !");
 			});
 
-			const buttonObjects= document.querySelector('.objects');
-			buttonObjects.addEventListener('click', function(id) {
+			const buttontwo= document.getElementById('objects');
+			buttontwo.addEventListener('click', function(event_objects) {
 				console.log("Vous avez cliqué sur le bouton 'Objets' !");
 			});
 
 
-			const buttonAppartments = document.querySelector('.appartements');
-			buttonAppartments.addEventListener('click', function(id) {
+			const buttont = document.getElementById('apartments');
+			buttont.addEventListener('click', function(event_apartments) {
 				console.log("Vous avez cliqué sur le bouton 'Appartements' !");
 			});
 
-			const buttonHR = document.querySelector('.hr');
-			buttonHR.addEventListener('click', function(id) {
+			const buttonfour = document.getElementById('hr');
+			buttonfour.addEventListener('click', function(event_hr) {
 				console.log("Vous avez cliqué sur le bouton 'Hôtels & Restaurants' !");
 			});
 
-		});
+		//});
 
 
 	});
