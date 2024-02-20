@@ -98,6 +98,10 @@ nav li {
 li:hover {
 	color: #B1663C;
 }
+
+.login {
+	text-decoration: none;
+}
 #introduction {
 	display: flex;
 	align-items: center;
@@ -170,7 +174,7 @@ li:hover {
 
 
 .selected {
-	overflow:auto;
+	display:block;
 }
 
 .not-selected {

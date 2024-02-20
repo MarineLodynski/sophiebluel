@@ -1,5 +1,5 @@
 // Récupération travaux
-const gallery = document.querySelector(".gallery");
+
 async function RecupTravaux() {
 	fetch("http://localhost:5678/api/works", {
 		method: "GET",
@@ -11,9 +11,11 @@ async function RecupTravaux() {
 	})
 
 	.then ((works) => {
-		//console.log(works);
+		console.log(works);
 		//Ajout des travaux dans la galerie
-		for(const work of works) {
+		function InitWorks() {
+			const gallery = document.querySelector(".gallery");
+			for(const work of works) {
 			let figure = document.createElement("figure");
 			const imageElement = document.createElement("img");
 			const figcaption = document.createElement("figcaption");
@@ -23,29 +25,33 @@ async function RecupTravaux() {
 			gallery.appendChild(figure);
 			figure.appendChild(imageElement);
 			figure.appendChild(figcaption);
-			
+			}
 		}
+		InitWorks();
+	});
+}
+RecupTravaux();
 
-		//const workschoseni =  works.filter(function(work) {
-			//return work.categoryId === 1;
-		//});
+async function FiltresTravaux() {
+	fetch("http://localhost:5678/api/categories", {
+		method: "GET",
+		headers: { "Content-Type": "application/json" },
+	})
 
-		//const workschosenii =  works.filter(function(work) {
-			//return work.categoryId === 2;
-		//});
-		
+	.then((response) => {	
+		return response.json();
+	})
 
-		//const workschoseniii =  works.filter(function(work) {
-			//return work.categoryId === 3;
-		//});
-		
-		
+	.then ((categories) => { 
+		console.log(categories);
+
 
 		//EventListeners des boutons
 		const buttonone = document.getElementById('all');
 		buttonone.addEventListener('click', function(event_all) {
 			console.log("Vous avez cliqué sur le bouton 'Tous' !");
 			console.log(works);
+			//Updatebutton('all');
 		});
 
 		const buttontwo= document.getElementById('objects');
@@ -55,6 +61,7 @@ async function RecupTravaux() {
 				return work.categoryId === 1;
 			});
 			console.log(workschoseni);
+			
 		});
 
 
@@ -65,6 +72,7 @@ async function RecupTravaux() {
 				return work.categoryId === 2;
 			});
 			console.log(workschosenii);
+			
 		});
 
 		const buttonfour = document.getElementById('hr');
@@ -75,16 +83,12 @@ async function RecupTravaux() {
 				
 			});
 			console.log(workschoseniii);
+			
 		});
 
-		
-
-
-	});
-
-
-
-
+	})
 }
-RecupTravaux();
+FiltresTravaux();
+
+
 
