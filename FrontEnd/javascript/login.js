@@ -8,7 +8,7 @@ fetch("http://localhost:5678/api/users/login", {
 		return response.json();
 	})
 
-	.then ((users) => {
+	.then (() => {
 		//console.log(users)
     }
 )    
