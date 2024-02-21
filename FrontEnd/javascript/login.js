@@ -48,7 +48,7 @@ fetch(url, {
 
 		function login() {
 			// Pour stocker le token (uniquement lors de la durée de la session)
-			sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiO…jU3fQ.Y_aY4fPtlDThpzaOkMjBlvpn5sTQRdtOuRco4pEoif0');
+			sessionStorage.setItem('token', '');
 
 			// Pour récupérer le token
 			sessionStorage.getItem('token');
