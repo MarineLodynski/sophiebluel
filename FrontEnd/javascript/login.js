@@ -36,7 +36,7 @@ fetch(url, {
 			return false
 			
 		}
-		verifierEmail(email);
+		
 
 		//Fonction Validation mot de passe avec expression régulière
 		function verifierPassword(password){
@@ -46,7 +46,7 @@ fetch(url, {
 			}
 			return false
 		}
-		verifierPassword(password);
+		
 
 		function login(token) {
 			// Pour stocker le token (uniquement lors de la durée de la session)
@@ -54,7 +54,7 @@ fetch(url, {
 			//return token;
 
 			// Pour récupérer le token
-			//sessionStorage.getItem('token');
+			//sessionStorage.getItem(token);
 		}
 		//login();
 
@@ -73,11 +73,15 @@ fetch(url, {
 		
 			if (email === "sophie.bluel@test.tld" && password === "S0phie") {
 				console.log("Vous avez réussi !")
-				login(token)
+				const logintologout = document.getElementById("logintologout");
+				logintologout.textContent="Logout";
+				login();
 				window.location.href = 'index.html';	
 			} else {
 				console.log("Erreur, veuillez recommencer.")
 			}
+			verifierEmail(email);
+			verifierPassword(password);
 		});
 
     }
