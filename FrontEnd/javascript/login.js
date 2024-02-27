@@ -12,7 +12,7 @@ fetch(url, {
 		headers: { 
 			"Accept": "application/json",
 			"Content-Type": "application/json",
-			'Authorization': `Bearer ${token}`  
+			'Authorization': `Bearer ${token}` 
 		},
 		body: JSON.stringify(data),
 	})
@@ -22,9 +22,8 @@ fetch(url, {
 	})
 
 	.then ((users) => {
-
 		console.log(users);
-		
+
 		const email = document.getElementById("email");
 		const password = document.getElementById("password"); 
 
@@ -35,7 +34,9 @@ fetch(url, {
 				return true
 			}
 			return false
+			
 		}
+		verifierEmail(email);
 
 		//Fonction Validation mot de passe avec expression régulière
 		function verifierPassword(password){
@@ -45,32 +46,39 @@ fetch(url, {
 			}
 			return false
 		}
+		verifierPassword(password);
 
-		function login() {
+		function login(token) {
 			// Pour stocker le token (uniquement lors de la durée de la session)
-			sessionStorage.setItem('token', '');
+			sessionStorage.setItem('token', token);
+			//return token;
 
 			// Pour récupérer le token
-			sessionStorage.getItem('token');
+			//sessionStorage.getItem('token');
 		}
+		//login();
 
-		function logout() {
+		//function logout() {
 			//Suppression token suite à la déconnexion
-			sessionStorage.removeItem('token');
+			//sessionStorage.removeItem('token');
 
 			//Redirection vers la page d'accueil
-			window.location.href ='index.html';
-		}
+			//window.location.href ='index.html';
+		//}
+		//logout();
 
-		const loginform = document.querySelector("form .login");
-		loginform.addEventListener("submit", (formdefault) => {
-			
-			formdefault.preventDefault()
-			if (verifierEmail(email) && verifierPassword(password)) {
+		const loginform = document.querySelector(".login");
+		loginform.addEventListener('submit', function(event_connection) {
+			event_connection.preventDefault();
+		
+			if (email === "sophie.bluel@test.tld" && password === "S0phie") {
 				console.log("Vous avez réussi !")
-				window.location.href = 'index.html'
+				login(token)
+				window.location.href = 'index.html';	
+			} else {
+				console.log("Erreur, veuillez recommencer.")
 			}
-		})
+		});
 
     }
 )    
