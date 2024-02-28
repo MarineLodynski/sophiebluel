@@ -1,10 +1,7 @@
 // Variables importantes
 //const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4";
 const url = "http://localhost:5678/api/users/login";
-const elements = {
-	email: "sophie.bluel@test.tld",
-    password: "S0phie",
-}
+
   
 //export function ajoutListenerLogin () {
 	const emailInput = document.getElementById("email");
@@ -17,8 +14,12 @@ const elements = {
 		const email = emailInput.value;
 		const password = passwordInput.value;
 
-		if (verifierEmail(email) && verifierPassword(password)) {
-			if (email === "sophie.bluel@test.tld" && password === "S0phie") {		
+		const elements = {
+			email: email,
+			password: password,
+		}
+
+		if (verifierEmail(email) && verifierPassword(password)) {	
 				fetch(url, {
 					method: "POST",
 					headers: { 
@@ -35,7 +36,7 @@ const elements = {
 				.then ((users) => {
 					const token = users.token
 
-					console.log("Vous avez réussi !")
+					//alert(token);
 				
 					sessionStorage.setItem('token', token);
 					window.location.href = 'index.html';
@@ -44,9 +45,9 @@ const elements = {
 				.catch (error => {
 					console.error('Erreur', error)
 				});
-			} else {
+			
+		} else {
 			console.log("Erreur, veuillez recommencer.");
-			}
 		}
 	});
 //}

@@ -93,7 +93,7 @@ RecupTravaux();
 //function logout() {
 
 		// Pour récupérer le token
-		//sessionStorage.getItem(token);
+		//
 		//}
 		//Suppression token suite à la déconnexion
 		//sessionStorage.removeItem('token');
@@ -107,18 +107,39 @@ RecupTravaux();
 //const login = document.querySelector("login");
 //login.textContent="logout";
 
-function loginButton () {
-	const blackbar = document.querySelectorAll("blackbar");
-	const modification = document.querySelectorAll("modification");
-	const filters = document.querySelectorAll("filters");
-	if (loginb) {
-		blackbar.style.display = "none";
-		modification.style.display = "none";
-	} else 
+//function loginButton () {
+	//const blackbar = document.querySelectorAll("blackbar");
+	//const modification = document.querySelectorAll("modification");
+	//const filters = document.querySelectorAll("filters");
+	//if (loginb) {
+		//blackbar.style.display = "none";
+		//modification.style.display = "none";
+	//} else 
 	//(logout) 
-	{
-		blackbar.style.display = "block";
-		modification.style.display = "block";
-		filters.style.display = "none";
-	}
+	//{
+		//blackbar.style.display = "block";
+		//modification.style.display = "block";
+		//filters.style.display = "none";
+	//}
+//}
+
+
+//if (!users.token) {
+	//alert('Erreur dans l’identifiant ou le mot de passe');
+//}
+//else {
+	//localStorage.setItem('token', result.token);
+	//window.location.replace("index.html")
+//}
+
+
+let token = localStorage.getItem('token')
+
+if(token){
+  console.log('OK')
+document.querySelector('#login').innerHTML = "<a href='login.html'>Logout </a>" 
+
+
 }
+
+
