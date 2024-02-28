@@ -85,6 +85,19 @@ async function RecupTravaux() {
 }
 RecupTravaux();
 
+//import { ajoutListenerLogin } from "./login.js";
+//const reponse = await fetch('http://localhost:5678/api/users/login');
+//const loginapp = await reponse.json();
+//ajoutListenerLogin();
 
+//function logout() {
+		//Suppression token suite à la déconnexion
+		//sessionStorage.removeItem('token');
 
+		//Redirection vers la page d'accueil
+		//window.location.href ='index.html';
+//}
+//logout();	
 
+//const logintologout = document.getElementById("logintologout");
+//logintologout.textContent="Logout";

@@ -1,88 +1,69 @@
 // Variables importantes
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4";
+//const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4";
 const url = "http://localhost:5678/api/users/login";
-const data = {
+const elements = {
 	email: "sophie.bluel@test.tld",
     password: "S0phie",
 }
+  
+//export function ajoutListenerLogin () {
+	const emailInput = document.getElementById("email");
+	const passwordInput = document.getElementById("password"); 
 
-//Page de connexion
-fetch(url, {
-		method: "POST",
-		headers: { 
-			"Accept": "application/json",
-			"Content-Type": "application/json",
-			'Authorization': `Bearer ${token}` 
-		},
-		body: JSON.stringify(data),
-	})
+	const loginform = document.querySelector(".login");
+	loginform.addEventListener('submit', function(event_connection) {
+		event_connection.preventDefault();
 
-	.then((response) => {	
-		return response.json();
-	})
+		const email = emailInput.value;
+		const password = passwordInput.value;
 
-	.then ((users) => {
-		console.log(users);
+		if (verifierEmail(email) && verifierPassword(password)) {
+			if (email === "sophie.bluel@test.tld" && password === "S0phie") {		
+				fetch(url, {
+					method: "POST",
+					headers: { 
+						"Accept": "application/json",
+						"Content-Type": "application/json", 
+					},
+					body: JSON.stringify(elements),
+				})
 
-		const email = document.getElementById("email");
-		const password = document.getElementById("password"); 
+				.then((response) => {	
+					return response.json();
+				})
 
-		//Fonction Validation email avec expression régulière
-		function verifierEmail(email) {
-			let emailRegExp = new RegExp("[a-z0-9._-]+\.[a-z0-9._-]+@[a-z0-9._-]+\.[a-z0-9._-]+");
-			if (emailRegExp.test(email)) {
-				return true
-			}
-			return false
-			
-		}
-		
+				.then ((users) => {
+					const token = users.token
 
-		//Fonction Validation mot de passe avec expression régulière
-		function verifierPassword(password){
-			let passwordRegExp = new RegExp("[a-z0-9._-]+");
-			if (passwordRegExp.test(password)) {
-				return true
-			}
-			return false
-		}
-		
+					console.log("Vous avez réussi !")
+				
+					
+					sessionStorage.setItem('token', token);
+					window.location.href = 'index.html';
+					// Pour récupérer le token
+					//sessionStorage.getItem(token);
+					//}
+					//login();
 
-		function login(token) {
-			// Pour stocker le token (uniquement lors de la durée de la session)
-			sessionStorage.setItem('token', token);
-			//return token;
-
-			// Pour récupérer le token
-			//sessionStorage.getItem(token);
-		}
-		//login();
-
-		//function logout() {
-			//Suppression token suite à la déconnexion
-			//sessionStorage.removeItem('token');
-
-			//Redirection vers la page d'accueil
-			//window.location.href ='index.html';
-		//}
-		//logout();
-
-		const loginform = document.querySelector(".login");
-		loginform.addEventListener('submit', function(event_connection) {
-			event_connection.preventDefault();
-		
-			if (email === "sophie.bluel@test.tld" && password === "S0phie") {
-				console.log("Vous avez réussi !")
-				const logintologout = document.getElementById("logintologout");
-				logintologout.textContent="Logout";
-				login();
-				window.location.href = 'index.html';	
+				}) 
+				.catch (error => {
+					console.error('Erreur', error)
+				});
 			} else {
-				console.log("Erreur, veuillez recommencer.")
+			console.log("Erreur, veuillez recommencer.");
 			}
-			verifierEmail(email);
-			verifierPassword(password);
-		});
+		}
+	});
+//}
+//Fonction Validation email avec expression régulière
+function verifierEmail(email) {
+	let emailRegExp = new RegExp("[a-z0-9._-]+\.[a-z0-9._-]+@[a-z0-9._-]+\.[a-z0-9._-]+");
+	return emailRegExp.test(email);
+}
+		
 
-    }
-)    
+//Fonction Validation mot de passe avec expression régulière
+function verifierPassword(password){
+	let passwordRegExp = new RegExp("[a-z0-9._-]+");
+	return passwordRegExp.test(password);
+}
