@@ -37,13 +37,8 @@ const elements = {
 
 					console.log("Vous avez réussi !")
 				
-					
 					sessionStorage.setItem('token', token);
 					window.location.href = 'index.html';
-					// Pour récupérer le token
-					//sessionStorage.getItem(token);
-					//}
-					//login();
 
 				}) 
 				.catch (error => {

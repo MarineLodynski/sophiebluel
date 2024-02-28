@@ -91,13 +91,34 @@ RecupTravaux();
 //ajoutListenerLogin();
 
 //function logout() {
+
+		// Pour récupérer le token
+		//sessionStorage.getItem(token);
+		//}
 		//Suppression token suite à la déconnexion
 		//sessionStorage.removeItem('token');
+		//sessionStorage.clear();
 
 		//Redirection vers la page d'accueil
 		//window.location.href ='index.html';
 //}
 //logout();	
 
-//const logintologout = document.getElementById("logintologout");
-//logintologout.textContent="Logout";
+//const login = document.querySelector("login");
+//login.textContent="logout";
+
+function loginButton () {
+	const blackbar = document.querySelectorAll("blackbar");
+	const modification = document.querySelectorAll("modification");
+	const filters = document.querySelectorAll("filters");
+	if (loginb) {
+		blackbar.style.display = "none";
+		modification.style.display = "none";
+	} else 
+	//(logout) 
+	{
+		blackbar.style.display = "block";
+		modification.style.display = "block";
+		filters.style.display = "none";
+	}
+}
