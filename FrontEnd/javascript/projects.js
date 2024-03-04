@@ -85,10 +85,6 @@ async function RecupTravaux() {
 }
 RecupTravaux();
 
-//import { ajoutListenerLogin } from "./login.js";
-//const reponse = await fetch('http://localhost:5678/api/users/login');
-//const loginapp = await reponse.json();
-//ajoutListenerLogin();
 
 //function logout() {
 
@@ -123,22 +119,71 @@ RecupTravaux();
 	//}
 //}
 
+//Récupérer le token
+let token = sessionStorage.getItem('token')
+const divblackbar = document.querySelector(".blackbar");
+divblackbar.style.display="none";
+const divmodification = document.querySelector(".modification");
+divmodification.style.display="none";
 
-//if (!users.token) {
-	//alert('Erreur dans l’identifiant ou le mot de passe');
-//}
-//else {
-	//localStorage.setItem('token', result.token);
-	//window.location.replace("index.html")
-//}
+//filters.style.display="flex";
 
-
-let token = localStorage.getItem('token')
-
+// Si le token est bien récupéré
 if(token){
-  console.log('OK')
-document.querySelector('#login').innerHTML = "<a href='login.html'>Logout </a>" 
+  	console.log('OK')
+	const login = document.querySelector('#login')
+	//login.innerHTML = "<a href='login.html'>logout </a>" ;
+	//login.setAttribute("id", "login");
+	login.innerHTML ="logout";
 
+	//Constitution barre noire - création tous les éléments
+	//const divblackbar = document.createElement("div");
+	//divblackbar.classList.add("blackbar");
+	
+
+	const iconblackbar = document.createElement("i");
+	iconblackbar.classList.add("fa-regular", "fa-pen-to-square");
+	const paragraphblackbar = document.createElement("p");
+	paragraphblackbar.textContent = "Mode édition";
+
+	//body.appendChild(divblackbar);
+	divblackbar.appendChild(iconblackbar);
+	divblackbar.appendChild(paragraphblackbar);
+	divblackbar.style.display="flex";
+	
+
+	//Constitution modification
+	const divmyprojects = document.querySelector(".myprojects");
+	divmyprojects.classList.add("prodiv");
+	//const divmodification = document.createElement("div");
+	//divmodification.classList.add(".modification");
+	
+
+	const iconmodification = document.createElement("i");
+	iconmodification.classList.add("fa-regular", "fa-pen-to-square");
+	
+	const paragraphmodification = document.createElement("p");
+	paragraphmodification.textContent = "à modifier";
+
+	//divmyprojects.appendChild(divmodification);
+	divmodification.appendChild(iconmodification);
+	divmodification.appendChild(paragraphmodification);
+	divmodification.style.display="flex";
+
+	
+	//Disparition filtres
+	const filters = document.querySelector(".filters");
+	filters.style.display = "none";
+	
+
+	login.addEventListener('click', function (event) {
+		//Suppression token suite à la déconnexion
+		sessionStorage.removeItem('token');
+		sessionStorage.clear();
+
+		//Redirection vers la page d'accueil
+		window.location.href ='index.html';
+	})
 
 }
 
