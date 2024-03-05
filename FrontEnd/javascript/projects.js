@@ -125,8 +125,7 @@ const divblackbar = document.querySelector(".blackbar");
 divblackbar.style.display="none";
 const divmodification = document.querySelector(".modification");
 divmodification.style.display="none";
-divmodification.setAttribute('href', '#modal');
-divmodification.setAttribute('class', 'js-modal');
+
 
 //filters.style.display="flex";
 

@@ -205,6 +205,7 @@ nav a {
 	font-weight:400;
 	font-size:14px;
 	color:black;
+	cursor:pointer;
 	
 }
 
@@ -213,31 +214,58 @@ nav a {
 
 /* Modale */
 
-/*.modal {
-	position:fixed;
-	display:flex;
-	align-items: center;
-	justify-content: center;
-	top:0;
-	left:0;
-	width:100%;
-	height:100%;
-	background: rgba(0, 0, 0, 0.8);
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.3);
 }
-
-.modal-wrapper {
-	overflow:auto;
+  
+.modal-content {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: white;
+	margin: 15% auto;
+	padding: 20px;
+	border: 1px solid;
+	border-radius: 10px;
+	border-color:white;
 	width:600px;
 	max-width:calc(100vh - 20px);
 	max-height:calc(100vh - 20px);
-	padding:20px;
-	background-color:white;
+}
+  
+.close {
+	align-self: flex-end;
+	color: black;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+  
+.close:hover,
+.close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 .titlemodal {
+	text-align: center;
 	font-family: Work Sans;
 	font-weight:400;
 	font-size:26px;
+	color:black;
+	border-bottom:solid;
+	/*border-bottom: 20px;*/
+	border-color: #B3B3B3;
+	border-width: 1px;
+	padding-bottom:20px;
 
 }
 
@@ -252,45 +280,11 @@ nav a {
 	margin-bottom:20px;
 	border:solid;
 	border-radius:60px;
-	padding:10px 60px;
+	padding:10px 10px;
+	width:237px;
 	
-}*/
-
-/*align-items: center;*/
-
-.modal {
-	display: none;
-	position: fixed;
-	z-index: 1;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgba(0, 0, 0, 0.5);
+	
 }
-  
-.modal-content {
-	background-color: #fefefe;
-	margin: 15% auto;
-	padding: 20px;
-	border: 1px solid #888;
-	width: 80%;
-}
-  
-.close {
-	color: #aaa;
-	float: right;
-	font-size: 28px;
-	font-weight: bold;
-}
-  
-.close:hover,
-.close:focus {
-	color: black;
-	text-decoration: none;
-	cursor: pointer;
-}
-
 
 /* Fin Modale */
 
@@ -310,6 +304,7 @@ nav a {
     border-width: 1px;
     border-radius: 60px;
     padding: 10px 25px;
+	cursor: pointer;
 }
 
 .filters button:active{
