@@ -125,6 +125,8 @@ const divblackbar = document.querySelector(".blackbar");
 divblackbar.style.display="none";
 const divmodification = document.querySelector(".modification");
 divmodification.style.display="none";
+divmodification.setAttribute('href', '#modal');
+divmodification.setAttribute('class', 'js-modal');
 
 //filters.style.display="flex";
 
@@ -162,12 +164,12 @@ if(token){
 	const iconmodification = document.createElement("i");
 	iconmodification.classList.add("fa-regular", "fa-pen-to-square");
 	
-	const paragraphmodification = document.createElement("p");
-	paragraphmodification.textContent = "à modifier";
+	const amodification = document.createElement("a");
+	amodification.textContent = "à modifier";
 
 	//divmyprojects.appendChild(divmodification);
 	divmodification.appendChild(iconmodification);
-	divmodification.appendChild(paragraphmodification);
+	divmodification.appendChild(amodification);
 	divmodification.style.display="flex";
 
 	
