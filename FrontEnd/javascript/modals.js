@@ -6,33 +6,43 @@ openModal.addEventListener('click', function () {
     const myModal = document.getElementById('myModal');
     myModal.style.display = "block";
 
-    fetch("http://localhost:5678/api/works", {
-		method: "GET",
-		headers: { "Content-Type": "application/json" },
-	})
+    fetch("http://localhost:5678/api/works")
+		
 
-	.then((response) => {	
+	  .then((response) => {	
 		return response.json();
-	})
+	  })
 
-	.then ((works) => {
-		console.log(works);
+	  .then ((works) => {
+		  console.log(works);
        
-            const gallery = document.querySelector(".gallery");
-            for(const work of works) {
-            let figure = document.createElement("figure");
-            const imageElement = document.createElement("img");
-            const figcaption = document.createElement("figcaption");
-            imageElement.src=work.imageUrl;
-            imageElement.alt=work.title;
-            figcaption.innerText=work.title;
-            gallery.appendChild(figure);
-            figure.appendChild(imageElement);
-            figure.appendChild(figcaption);
-            }
+      const galleryModal = document.querySelector(".gallerymodal");
+        for(const work of works) {
+          let figureModal = document.createElement("figure");
+          const imageModal = document.createElement("img");
+          const figcaptionModal = document.createElement("figcaption");
+
+          let trashModal = document.createElement("i");
+          trashModal.classList.add(".fa-solid");
+          trashModal.classList.add(".fa-trash-can"); 
+          trashModal.classList.add(".trash")
+          
+
+          imageModal.src=work.imageUrl;
+          imageModal.alt=work.title;
+          figcaptionModal.innerText=work.title;
+
+          galleryModal.appendChild(figureModal);
+          figureModal.appendChild(imageModal);
+          figureModal.appendChild(figcaptionModal);
+          figureModal.appendChild(trashModal);
+        }
         
         
-    })    
+    }) 
+    .catch (error => {
+      console.error('Erreur', error)
+    });   
 })
   
 // Fermer la fenêtre modale lorsque l'utilisateur clique sur le bouton de fermeture
@@ -46,3 +56,68 @@ window.onclick = function(event) {
       document.getElementById('myModal').style.display = "none";
     }
 }
+
+
+
+
+// Ajout de travaux
+const newphoto = document.querySelector(".newphoto");
+newphoto.addEventListener('click', function(event_newphoto) {
+  event_newphoto.preventDefault();
+  
+  fetch('http://localhost:5678/api/works', {
+    method: "POST",
+    headers: { 
+      "Accept": "application/json",
+      "Content-Type": "multipart/form-data", 
+    },
+    body: JSON.stringify({
+      image: "url_de_l_image",
+      title: "le_titre",
+      category: "la_categorie"
+    }),
+    
+  })
+
+  .then((response) => {	
+    return response.json();
+  })
+
+  .then ((data) => {
+    console.log(data);
+  }) 
+
+  .catch (error => {
+    console.error('Erreur', error)
+  });
+
+})
+
+
+// Suppression de travaux existants
+//const trash = document.querySelector(".trash");
+//trash.addEventListener('click', function(event_trash) {
+  //event_trash.preventDefault();
+  
+  //fetch('http://localhost:5678/api/works/1', {
+    //method: "DELETE",
+   // headers: { 
+   //   "Accept": "*/*",
+   // },
+  
+ // })
+
+ // .then((response) => {	
+   // return response.json();
+  //})
+
+  //.then ((users) => {
+    // const token = users.token
+    //alert(token);
+  //}) 
+
+  //.catch (error => {
+   // console.error('Erreur', error)
+  //});
+
+//})

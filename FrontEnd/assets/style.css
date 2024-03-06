@@ -226,6 +226,7 @@ nav a {
 }
   
 .modal-content {
+	position:relative;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -239,7 +240,11 @@ nav a {
 	max-width:calc(100vh - 20px);
 	max-height:calc(100vh - 20px);
 }
-  
+ 
+.modal-content h2 {
+	margin-right:0;
+}
+
 .close {
 	align-self: flex-end;
 	color: black;
@@ -261,13 +266,50 @@ nav a {
 	font-weight:400;
 	font-size:26px;
 	color:black;
-	border-bottom:solid;
-	/*border-bottom: 20px;*/
+	/*border-bottom:solid;
+	border-bottom: 20px;
 	border-color: #B3B3B3;
 	border-width: 1px;
-	padding-bottom:20px;
+	padding-bottom:20px;*/
 
 }
+
+/*Gallerie modale */
+.gallerymodal {
+	/*width: 100%;*/
+	display: grid;
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    /* column-gap: 20px; */
+    row-gap: 20px;
+    grid-template-columns: 100px 100px 100px;
+
+	border-bottom: solid;
+    /* border-bottom: 20px; */
+    border-color: #B3B3B3;
+    border-width: 1px;
+    padding-bottom: 40px;
+}
+
+
+.gallerymodal img {
+	width:80%;
+	display: block;
+}
+
+.gallerymodal figcaption {
+	display:none;
+}
+
+
+.trash {
+	position: absolute;
+  	top: 5px; 
+  	right: 5px; 
+  	font-size: 24px; 
+  	color: red;
+}
+
+/* Fin Gallerie modale */
 
 .newphoto {
 	font-family: Syne;
@@ -277,6 +319,7 @@ nav a {
 	text-align: center;
 	color:white;
 	background-color: #1D6154;
+	margin-top:20px;
 	margin-bottom:20px;
 	border:solid;
 	border-radius:60px;
