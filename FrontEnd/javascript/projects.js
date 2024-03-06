@@ -120,7 +120,7 @@ RecupTravaux();
 //}
 
 //Récupérer le token
-let token = sessionStorage.getItem('token')
+let token = localStorage.getItem('token')
 const divblackbar = document.querySelector(".blackbar");
 divblackbar.style.display="none";
 const divmodification = document.querySelector(".modification");
@@ -179,8 +179,8 @@ if(token){
 
 	login.addEventListener('click', function (event) {
 		//Suppression token suite à la déconnexion
-		sessionStorage.removeItem('token');
-		sessionStorage.clear();
+		localStorage.removeItem('token');
+		localStorage.clear();
 
 		//Redirection vers la page d'accueil
 		window.location.href ='index.html';

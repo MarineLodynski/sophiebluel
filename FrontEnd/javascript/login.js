@@ -1,11 +1,12 @@
 // Variables importantes
-//const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTY1MTg3NDkzOSwiZXhwIjoxNjUxOTYxMzM5fQ.JGN1p8YIfR-M-5eQ-Ypy6Ima5cKA4VbfL2xMr2MgHm4";
 const url = "http://localhost:5678/api/users/login";
 
   
 //export function ajoutListenerLogin () {
 	const emailInput = document.getElementById("email");
-	const passwordInput = document.getElementById("password"); 
+	const passwordInput = document.getElementById("password");
+	const messageErreur = document.querySelector('.error');
+	messageErreur.style.display="none"; 
 
 	const loginform = document.querySelector(".login");
 	loginform.addEventListener('submit', function(event_connection) {
@@ -30,24 +31,32 @@ const url = "http://localhost:5678/api/users/login";
 				})
 
 				.then((response) => {	
-					return response.json();
+					if (response.ok ){
+						return response.json();
+					} else {
+
+					}
+					
 				})
 
 				.then ((users) => {
 					const token = users.token
 
-					//alert(token);
+					alert(token);
+					alert(email, password);
 				
-					sessionStorage.setItem('token', token);
+					localStorage.setItem('token', token);
 					window.location.href = 'index.html';
 
 				}) 
 				.catch (error => {
-					console.error('Erreur', error)
+					//console.error('Erreur', error)
+					console.log("Erreur de connexion. Veuillez vérifier votre connexion Internet.");
 				});
 			
 		} else {
-			console.log("Erreur, veuillez recommencer.");
+			//console.log("Erreur, veuillez recommencer.");
+			messageErreur.style.display="block";
 		}
 	});
 //}
@@ -63,3 +72,81 @@ function verifierPassword(password){
 	let passwordRegExp = new RegExp("[a-z0-9._-]+");
 	return passwordRegExp.test(password);
 }
+
+//1er cas
+//let response =	fetch(url, { method: "POST",	headers: { 	"Accept": "application/json", "Content-Type": "application/json", },body: JSON.stringify(elements),})
+
+//let responseJson = response.json()
+
+
+//if (responseJson.token){
+		//localStorage.setItem('token', token);
+				 // window.location.href = 'index.html';
+//}
+//else{
+ //console.log("Erreur de connexion. Veuillez vérifier votre connexion Internet.");
+ //messageErreur.style.display="block";
+//}
+
+
+
+
+
+
+
+
+
+
+
+//2eme cas 
+	//let response =	fetch(url, { method: "POST",	headers: { 	"Accept": "application/json", "Content-Type": "application/json", },body: JSON.stringify(elements),})
+
+  //let responseJson = response.json()
+
+
+  //if (responseJson.token){
+         // localStorage.setItem('token', token);
+					//window.location.href = 'index.html';
+  //}
+//else{
+   //console.log("Erreur de connexion. Veuillez vérifier votre connexion Internet.");
+   //messageErreur.style.display="block";
+//}
+
+
+
+
+
+
+
+//if (verifierEmail(email) && verifierPassword(password)) {	
+				//fetch(url, {
+					//method: "POST",
+					//headers: { 
+						//"Accept": "application/json",
+						//"Content-Type": "application/json", 
+					//},
+					//body: JSON.stringify(elements),
+				//})
+				//.then((response) => {	
+
+          //if(response.ok)
+         //  {
+          //  const token =  response.json().token
+           // localStorage.setItem('token', token);
+					//  window.location.href = 'index.html';
+          // }
+					//else{
+            //console.log("Erreur de connexion. Veuillez vérifier votre connexion Internet.");
+           // messageErreur.style.display="block";
+         // }
+					
+				//})
+				//.catch (error => {
+					//console.error('Erreur', error)
+					//console.log("Erreur de connexion. Veuillez vérifier votre connexion Internet.");
+				//});
+			
+	//} else {
+		//messageErreur.style.display="block";
+	//}

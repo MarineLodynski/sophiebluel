@@ -136,13 +136,13 @@ nav a {
 	color: black;
 	text-decoration: none;
 }
-/*#login {
-	text-decoration: none;
+
+.error {
+	color:red;
+	margin-top:10px;
 }
 
-#logout {
-	text-decoration: none;
-}*/
+
 
 /* Fin Login */
 #introduction {
@@ -216,7 +216,7 @@ nav a {
 
 .modal {
 	display: none;
-	position: fixed;
+	position: absolute;
 	z-index: 1;
 	left: 0;
 	top: 0;
@@ -328,6 +328,23 @@ nav a {
 	
 	
 }
+
+.newvalidation {
+	font-family: Syne;
+	font-size: 14px;
+	font-weight: 700;
+	letter-spacing: 0em;
+	text-align: center;
+	color:white;
+	background-color: #1D6154;
+	margin-top:20px;
+	margin-bottom:20px;
+	border:solid;
+	border-radius:60px;
+	padding:10px 10px;
+	width:237px;
+}
+
 
 /* Fin Modale */
 

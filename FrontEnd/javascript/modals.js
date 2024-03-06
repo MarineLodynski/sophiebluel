@@ -38,7 +38,11 @@ openModal.addEventListener('click', function () {
           figureModal.appendChild(trashModal);
         }
         
-        
+        //const titlemoda_gallery = document
+        //const newphoto = document.querySelector(".newphoto");
+        //newphoto.addEventListener('click', function(event_newphoto) {
+
+        //})
     }) 
     .catch (error => {
       console.error('Erreur', error)
@@ -61,9 +65,11 @@ window.onclick = function(event) {
 
 
 // Ajout de travaux
-const newphoto = document.querySelector(".newphoto");
-newphoto.addEventListener('click', function(event_newphoto) {
-  event_newphoto.preventDefault();
+
+
+const newvalidation = document.querySelector(".newvalidation");
+newvalidation.addEventListener('click', function(event_newvalidation) {
+  event_newvalidation.preventDefault();
   
   fetch('http://localhost:5678/api/works', {
     method: "POST",
