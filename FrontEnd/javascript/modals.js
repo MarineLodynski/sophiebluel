@@ -97,7 +97,7 @@ newvalidation.addEventListener('click', function(event_newvalidation) {
     console.error('Erreur', error)
   });
 
-})
+});
 
 
 // Suppression de travaux existants
