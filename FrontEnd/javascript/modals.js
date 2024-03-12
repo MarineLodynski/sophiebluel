@@ -66,17 +66,60 @@ const modal2 = document.getElementById("modal2");
 modal2.style.display="none";
 const newphotoBtn = document.querySelector(".newphoto");
 newphotoBtn.addEventListener('click', function (event_newphotoBtn) {
-  //event_newphotoBtn.preventDefault();
+  event_newphotoBtn.preventDefault();
   modal1.style.display="none";
   modal2.style.display="flex";
   
 })
 
+//Vérifier la taille de l'image
+//function newImage () {
+  //if file === jpg && file {
+   // preview.appendChild(list);
+    //return
+ // } else {
+    //console.log("Erreur, veuillez recommencer.")
+  //}
+//}
+
+
+//Ajout catégories dans la modale 2
+function updateCategories () {
+  fetch('http://localhost:5678/api/categories', {
+    method:'GET',
+    headers : {
+    "Accept": "application/json",
+    } 
+  })
+
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Erreur lors de la récupération des catégories.');
+    }
+    return response.json();
+  })
+  
+  .then(categories => {
+    const selectElement = document.getElementById('category');
+    selectElement.innerHTML = ''; 
+
+    categories.forEach(category => {
+      const option = document.createElement('option');
+      option.value = category.id;
+      option.textContent = category.name;
+      selectElement.appendChild(option);
+    });
+  })
+
+  .catch(error => {
+    console.error('Erreur:', error);
+  });
+
+}
+updateCategories();
 
 
 // Ajout de travaux
-
-
 //const newvalidation = document.querySelector(".newvalidation");
 //newvalidation.addEventListener('click', function(event_newvalidation) {
   //event_newvalidation.preventDefault();
