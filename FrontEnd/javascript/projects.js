@@ -178,6 +178,7 @@ if(token){
 	
 
 	login.addEventListener('click', function (event) {
+		event.preventDefault();
 		//Suppression token suite à la déconnexion
 		localStorage.removeItem('token');
 		localStorage.clear();

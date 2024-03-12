@@ -212,7 +212,7 @@ nav a {
 
 /* Fin Modification */
 
-/* Modale */
+/* Modale 1*/
 
 .modal {
 	display: none;
@@ -224,6 +224,7 @@ nav a {
 	height: 100%;
 	background-color: rgba(0, 0, 0, 0.3);
 }
+
   
 .modal-content {
 	position:relative;
@@ -266,11 +267,7 @@ nav a {
 	font-weight:400;
 	font-size:26px;
 	color:black;
-	/*border-bottom:solid;
-	border-bottom: 20px;
-	border-color: #B3B3B3;
-	border-width: 1px;
-	padding-bottom:20px;*/
+	
 
 }
 
@@ -329,24 +326,153 @@ nav a {
 	
 }
 
-.newvalidation {
+/* Fin Modale 1*/
+
+/* Modale 2*/
+
+.form-new {
+	display: flex;
+	flex-direction: column;
+	width:70%;
+}
+
+.form-new input {
+	height: 50px;
+    font-size: 1.2em;
+    border: none;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.form-new select {
+	height: 50px;
+    font-size: 1.2em;
+    border: none;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+.new-image {
+	display:flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border: solid;
+	border-radius:3px;
+	border-width: 0px;
+	background-color: #E8F1F6;
+}
+
+.new-image i {
+	color: #B9C5CC;
+	margin-bottom:10px;
+}
+
+.new-image input {
+	display:none;
+}
+
+.new-image label {
+	font-family: Work Sans;
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 16px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #306685;
+	background-color:#CBD6DC;
+	border-radius:50px;
+	padding:10px 30px;
+}
+
+.new-image p {
+	font-family: Work Sans;
+	font-size: 10px;
+	font-weight: 400;
+	line-height: 12px;
+	letter-spacing: 0em;
+	text-align: center;
+	color: #444444;
+	margin-bottom:10px;
+}
+
+
+
+.title-image {
+	display: flex;
+	flex-direction: column;
+	gap:10px;
+	margin-top:10px;
+}
+
+.title-image label {
+	font-family: Work Sans;
+	font-size: 14px;
+	font-weight: 500;
+	font-weight:bold;
+	line-height: 16px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #3D3D3D;
+}
+
+.title-image input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+
+.category-image {
+	display: flex;
+	flex-direction: column;
+	gap:10px;
+	margin-top:0px;
+}
+
+
+.category-image label {
+	font-family: Work Sans;
+	font-size: 14px;
+	font-weight: 500;
+	font-weight:bold;
+	line-height: 16px;
+	letter-spacing: 0em;
+	text-align: left;
+	color: #3D3D3D;
+}
+
+.category-image select {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+
+}
+
+
+
+
+#validate {
 	font-family: Syne;
 	font-size: 14px;
 	font-weight: 700;
 	letter-spacing: 0em;
 	text-align: center;
 	color:white;
-	background-color: #1D6154;
+	/*background-color: #1D6154;*/
+	background-color:#A7A7A7;
 	margin-top:20px;
 	margin-bottom:20px;
 	border:solid;
+	border-width: 0px;
 	border-radius:60px;
 	padding:10px 10px;
 	width:237px;
+
 }
 
 
-/* Fin Modale */
+/* Fin Modale 2 */
 
 .filters {
 	display: flex;

@@ -61,43 +61,53 @@ window.onclick = function(event) {
     }
 }
 
+const modal1 = document.getElementById("modal1");
+const modal2 = document.getElementById("modal2");
+modal2.style.display="none";
+const newphotoBtn = document.querySelector(".newphoto");
+newphotoBtn.addEventListener('click', function (event_newphotoBtn) {
+  //event_newphotoBtn.preventDefault();
+  modal1.style.display="none";
+  modal2.style.display="flex";
+  
+})
 
 
 
 // Ajout de travaux
 
 
-const newvalidation = document.querySelector(".newvalidation");
-newvalidation.addEventListener('click', function(event_newvalidation) {
-  event_newvalidation.preventDefault();
+//const newvalidation = document.querySelector(".newvalidation");
+//newvalidation.addEventListener('click', function(event_newvalidation) {
+  //event_newvalidation.preventDefault();
   
-  fetch('http://localhost:5678/api/works', {
-    method: "POST",
-    headers: { 
-      "Accept": "application/json",
-      "Content-Type": "multipart/form-data", 
-    },
-    body: JSON.stringify({
-      image: "url_de_l_image",
-      title: "le_titre",
-      category: "la_categorie"
-    }),
+  //fetch('http://localhost:5678/api/works', {
+    //method: "POST",
+    //headers: { 
+      //"Accept": "application/json",
+      //"Content-Type": "multipart/form-data", 
+    //},
+    //body: JSON.stringify({
+     // image: "url_de_l_image",
+      //title: "le_titre",
+      //category: "la_categorie"
+    //}),
     
-  })
+  //})
 
-  .then((response) => {	
-    return response.json();
-  })
+ //.then((response) => {	
+   // return response.json();
+  //})
 
-  .then ((data) => {
-    console.log(data);
-  }) 
+ // .then ((data) => {
+    //console.log(data);
+  //}) 
 
-  .catch (error => {
-    console.error('Erreur', error)
-  });
+  //.catch (error => {
+   // console.error('Erreur', error)
+  //});
 
-});
+//});
 
 
 // Suppression de travaux existants
