@@ -307,8 +307,9 @@ loginform.addEventListener('submit', function(event_connection) {
             })
             .then(response => {
                 if (response.ok) {
-                    return response.json(); // Parse la réponse JSON
-                } else {
+					//Status Code 200
+                    return response.json();
+                } else if (response.status >= 400) {
                     throw new Error('Erreur de connexion');
                 }
             })

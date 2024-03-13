@@ -15,17 +15,15 @@ openModal.addEventListener('click', function () {
 
 	  .then ((works) => {
 		  console.log(works);
-       
-      const galleryModal = document.querySelector(".gallerymodal");
-        for(const work of works) {
+
+      function initGalleryModal() {
+        const galleryModal = document.querySelector(".gallerymodal");
+        works.forEach(function(work) {
           let figureModal = document.createElement("figure");
           const imageModal = document.createElement("img");
           const figcaptionModal = document.createElement("figcaption");
-
           let trashModal = document.createElement("i");
-          trashModal.classList.add(".fa-solid");
-          trashModal.classList.add(".fa-trash-can"); 
-          trashModal.classList.add(".trash")
+          trashModal.className= 'fa-solid fa-trash-can trash';
           
 
           imageModal.src=work.imageUrl;
@@ -36,13 +34,12 @@ openModal.addEventListener('click', function () {
           figureModal.appendChild(imageModal);
           figureModal.appendChild(figcaptionModal);
           figureModal.appendChild(trashModal);
-        }
         
-        //const titlemoda_gallery = document
-        //const newphoto = document.querySelector(".newphoto");
-        //newphoto.addEventListener('click', function(event_newphoto) {
-
-        //})
+        })
+      }
+      initGalleryModal();
+      
+       
     }) 
     .catch (error => {
       console.error('Erreur', error)
@@ -71,6 +68,9 @@ newphotoBtn.addEventListener('click', function (event_newphotoBtn) {
   modal2.style.display="flex";
   
 })
+
+
+
 
 //Vérifier la taille de l'image
 //function newImage () {
@@ -154,29 +154,34 @@ updateCategories();
 
 
 // Suppression de travaux existants
-//const trash = document.querySelector(".trash");
-//trash.addEventListener('click', function(event_trash) {
-  //event_trash.preventDefault();
+let trashModal = document.createElement("i");
+trashModal.addEventListener('click', function(event_trash) {
+  event_trash.preventDefault();
   
-  //fetch('http://localhost:5678/api/works/1', {
-    //method: "DELETE",
-   // headers: { 
-   //   "Accept": "*/*",
-   // },
-  
- // })
+  fetch('http://localhost:5678/api/works/${id}', {
+    method: "DELETE",
+    headers: { 
+     "Accept": "*/*",
+    },
+  })
 
- // .then((response) => {	
-   // return response.json();
-  //})
+  .then((response) => {	
+    if (response.ok){
+      console.log("L'image a été supprimée avec succès.")
+      return response.json();
+    } else if (response.status >= 401) {
+      throw new Error ("Erreur, veuillez recommencer.")
+    }
+  })
 
-  //.then ((users) => {
-    // const token = users.token
-    //alert(token);
+  //.then ((works) => {
+    
+    
+    
   //}) 
 
-  //.catch (error => {
-   // console.error('Erreur', error)
-  //});
+  .catch (error => {
+    console.error('Erreur', error)
+  });
 
-//})
+})
