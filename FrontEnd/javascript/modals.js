@@ -70,17 +70,20 @@ newphotoBtn.addEventListener('click', function (event_newphotoBtn) {
 })
 
 
-
-
 //Vérifier la taille de l'image
-//function newImage () {
-  //if file === jpg && file {
-   // preview.appendChild(list);
-    //return
- // } else {
-    //console.log("Erreur, veuillez recommencer.")
-  //}
-//}
+const maxFileSize = 4 * 1024 * 1024; 
+const imageInput = document.getElementById("imageInput");
+const image = imageInput.files[0];
+
+if (image && image.size > maxFileSize) {
+  alert("Erreur");
+}
+
+//Preview image chargement
+const imagePreview = document.getElementById("imagePreview");
+const imageUrl = URL.createObjectURL(file);
+imagePreview.src = imageUrl;
+imagePreview.style.display = "block";
 
 
 //Ajout catégories dans la modale 2
