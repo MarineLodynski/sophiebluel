@@ -70,22 +70,6 @@ newphotoBtn.addEventListener('click', function (event_newphotoBtn) {
 })
 
 
-//Vérifier la taille de l'image
-const maxFileSize = 4 * 1024 * 1024; 
-const imageInput = document.getElementById("imageInput");
-const image = imageInput.files[0];
-
-if (image && image.size > maxFileSize) {
-  alert("Erreur");
-}
-
-//Preview image chargement
-const imagePreview = document.getElementById("imagePreview");
-const imageUrl = URL.createObjectURL(file);
-imagePreview.src = imageUrl;
-imagePreview.style.display = "block";
-
-
 //Ajout catégories dans la modale 2
 function updateCategories () {
   fetch('http://localhost:5678/api/categories', {
@@ -121,61 +105,98 @@ function updateCategories () {
 }
 updateCategories();
 
+//Vérifier la taille de l'image
+//const maxFileSize = 4 * 1024 * 1024; 
+//const imageInput = document.getElementById("imageInput");
+//const image = imageInput.files[0];
 
-// Ajout de travaux
-//const newvalidation = document.querySelector(".newvalidation");
-//newvalidation.addEventListener('click', function(event_newvalidation) {
-  //event_newvalidation.preventDefault();
-  
-  //fetch('http://localhost:5678/api/works', {
-    //method: "POST",
-    //headers: { 
-      //"Accept": "application/json",
-      //"Content-Type": "multipart/form-data", 
-    //},
-    //body: JSON.stringify({
-     // image: "url_de_l_image",
-      //title: "le_titre",
-      //category: "la_categorie"
-    //}),
+ // if (image && image.size > maxFileSize) {
+   // alert("Erreur : La taille de l'image dépasse la limite autorisée.");
+ // } else {
+    //Preview image chargement
+    //const imagePreview = document.getElementById("imagePreview");
+   // const imageUrl = URL.createObjectURL(image);
+   // imagePreview.src = imageUrl;
+   // imagePreview.style.display = "block";
+    //FileReader();
+  //} 
+ 
+//Changement couleur bouton Valider
+
+const formV = document.querySelector(".new-form");
+const formData = new formData(formV);
+const file = document.querySelector("#file");
+
+// Les trois champs du formulaire pour la vérification
+const image = formData.get("image");
+const title = formData.get("title");
+const categorie = formData.get("category");
+
+const btnvalidate = document.getElementById("validate");
+
+// Si les 3 champs sont remplis
+if (image.value && title.value && categorie.value ) {
+  //Le bouton "Valider" aura le background-color vert 
+  btnvalidate.style.backgroundColor ="#1D6154";
+
+  //On pourra alors cliquer sur le bouton pour ajouter ce nouveau projet
+  btnvalidate.addEventListener('click', function(event_validate) {
+    event_validate.preventDefault();
     
-  //})
+    fetch('http://localhost:5678/api/works', {
+      method: "POST",
+      headers: { 
+        "Accept": "application/json",
+        "Content-Type": "multipart/form-data", 
+      },
+      body: JSON.stringify({
+        image: "url_de_l_image",
+        title: "le_titre",
+        category: "la_categorie"
+      }),
+      
+    })
+  
+    .then(response => {
+      if (response.status === 201) {
+        return response.json();
+      } else if (response.status >= 400) {
+          throw new Error('Erreur de connexion');
+      }
+    })
+  
+  
+  
+    .catch (error => {
+     console.error('Erreur', error);
+     alert("Une erreur est survenue. Veuillez recommencer.")
+    });
+  
+  });
+}
 
- //.then((response) => {	
-   // return response.json();
-  //})
-
- // .then ((data) => {
-    //console.log(data);
-  //}) 
-
-  //.catch (error => {
-   // console.error('Erreur', error)
-  //});
-
-//});
 
 
 // Suppression de travaux existants
-let trashModal = document.createElement("i");
-trashModal.addEventListener('click', function(event_trash) {
-  event_trash.preventDefault();
+//let trashModal = document.createElement("i");
+//trashModal.addEventListener('click', function(event_trash) {
+  //event_trash.preventDefault();
   
-  fetch('http://localhost:5678/api/works/${id}', {
-    method: "DELETE",
-    headers: { 
-     "Accept": "*/*",
-    },
-  })
+  //fetch('http://localhost:5678/api/works/${id}', {
+    //method: "DELETE",
+    //headers: { 
+     //"Accept": "*/*",
+    //},
+  //})
 
-  .then((response) => {	
-    if (response.ok){
-      console.log("L'image a été supprimée avec succès.")
-      return response.json();
-    } else if (response.status >= 401) {
-      throw new Error ("Erreur, veuillez recommencer.")
-    }
-  })
+ // .then((response) => {	
+   // if (response.ok){
+      //console.log("L'image a été supprimée avec succès.")
+     // return response.json();
+   // } else if (response.status >= 401) {
+      //throw new Error ("Erreur, veuillez recommencer.")
+    //}
+  //})
 
   //.then ((works) => {
     
@@ -183,8 +204,8 @@ trashModal.addEventListener('click', function(event_trash) {
     
   //}) 
 
-  .catch (error => {
-    console.error('Erreur', error)
-  });
+  //.catch (error => {
+   // console.error('Erreur', error)
+  //});
 
-})
+//})
