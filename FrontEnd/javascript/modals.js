@@ -105,75 +105,88 @@ function updateCategories () {
 }
 updateCategories();
 
+
 //Vérifier la taille de l'image
-//const maxFileSize = 4 * 1024 * 1024; 
-//const imageInput = document.getElementById("imageInput");
-//const image = imageInput.files[0];
+function showPreview(event) {
+  if (event.target.files.length > 0) {
+    const maxFileSize = 4 * 1024 * 1024; 
+    const image = event.target.files[0]; 
+    const btnAdd = document.querySelector(".btn-add");
+    const imageIcon = document.querySelector(".image-icon");
+    const indications = document.querySelector(".indications");
 
- // if (image && image.size > maxFileSize) {
-   // alert("Erreur : La taille de l'image dépasse la limite autorisée.");
- // } else {
-    //Preview image chargement
-    //const imagePreview = document.getElementById("imagePreview");
-   // const imageUrl = URL.createObjectURL(image);
-   // imagePreview.src = imageUrl;
-   // imagePreview.style.display = "block";
-    //FileReader();
-  //} 
- 
-//Changement couleur bouton Valider
 
-const formV = document.querySelector(".new-form");
-const formData = new formData(formV);
-const file = document.querySelector("#file");
+    // Vérification taille image (l'image ne doit pas dépasser 4mo)
+    if (image.size > maxFileSize) {
+      alert("Erreur : La taille de l'image dépasse la limite autorisée.");
+    } else {
+      const src = URL.createObjectURL(image); 
+      const imagePreview = document.getElementById("imagePreview");
+      imagePreview.src = src;
+      imagePreview.style.display = "block";
 
-// Les trois champs du formulaire pour la vérification
-const image = formData.get("image");
-const title = formData.get("title");
-const categorie = formData.get("category");
-
-const btnvalidate = document.getElementById("validate");
-
-// Si les 3 champs sont remplis
-if (image.value && title.value && categorie.value ) {
-  //Le bouton "Valider" aura le background-color vert 
-  btnvalidate.style.backgroundColor ="#1D6154";
-
-  //On pourra alors cliquer sur le bouton pour ajouter ce nouveau projet
-  btnvalidate.addEventListener('click', function(event_validate) {
-    event_validate.preventDefault();
-    
-    fetch('http://localhost:5678/api/works', {
-      method: "POST",
-      headers: { 
-        "Accept": "application/json",
-        "Content-Type": "multipart/form-data", 
-      },
-      body: JSON.stringify({
-        image: "url_de_l_image",
-        title: "le_titre",
-        category: "la_categorie"
-      }),
-      
-    })
-  
-    .then(response => {
-      if (response.status === 201) {
-        return response.json();
-      } else if (response.status >= 400) {
-          throw new Error('Erreur de connexion');
-      }
-    })
-  
-  
-  
-    .catch (error => {
-     console.error('Erreur', error);
-     alert("Une erreur est survenue. Veuillez recommencer.")
-    });
-  
-  });
+      //Faire disparaître les autres éléments
+      btnAdd.style.display = "none";
+      imageIcon.style.display = "none";
+      indications.style.display = "none";
+    }
+  }
 }
+
+//Changement couleur bouton Valider
+function validateForm () {
+  const modalF = document.querySelector(".new-form");
+  const formData = new formData(modalF);
+  console.log(formData);
+  const file = document.querySelector("#file");
+
+  // Les trois champs du formulaire pour la vérification
+  const image = formData.get("image");
+  const title = formData.get("title");
+  const categorie = formData.get("category");
+
+  const btnvalidate = document.getElementById("validate");
+
+  // Si les 3 champs sont remplis
+  if (image.value && title.value && categorie.value ) {
+    //Le bouton "Valider" aura le background-color vert 
+    btnvalidate.style.backgroundColor ="#1D6154";
+
+    //On pourra alors cliquer sur le bouton pour ajouter ce nouveau projet
+    btnvalidate.addEventListener('click', function(event_validate) {
+      event_validate.preventDefault();
+    
+      fetch('http://localhost:5678/api/works', {
+        method: "POST",
+        headers: { 
+          "Accept": "application/json",
+          "Content-Type": "multipart/form-data", 
+        },
+        body: JSON.stringify({
+          image: "url_de_l_image",
+          title: "le_titre",
+          category: "la_categorie"
+        }),
+      
+      })
+  
+      .then(response => {
+        if (response.status === 201) {
+          return response.json();
+        } else if (response.status >= 400) {
+            throw new Error('Erreur de connexion');
+        }
+      })
+  
+      .catch (error => {
+        console.error('Erreur', error);
+        alert("Une erreur est survenue. Veuillez recommencer.")
+      });
+  
+    });
+  }
+}
+
 
 
 

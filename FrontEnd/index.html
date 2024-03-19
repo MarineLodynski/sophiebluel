@@ -78,9 +78,9 @@
 				<form class="form-new">
 					<div class="new-image">
 						<img id="imagePreview">
-						<i class="fa-regular fa-image fa-5x"></i>
+						<i class="fa-regular fa-image fa-5x image-icon"></i>
 						<label for="image" class="btn-add">+ Ajouter photo</label>
-						<input type="file" name="image" id="image" accept="image/jpg, image/png" required><br>
+						<input type="file" name="image" id="image" accept="image/jpg, image/png" onchange="showPreview(event)" required><br>
 						<p class="indications">jpg, png : 4mo max</p>
 					</div>
 
