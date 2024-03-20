@@ -133,7 +133,8 @@ function showPreview(event) {
   }
 }
 
-//Changement couleur bouton Valider
+
+//Changement couleur bouton Valider + Ajout travaux
 function validateForm () {
   const modalF = document.querySelector(".new-form");
   const formData = new FormData(modalF);
@@ -147,8 +148,9 @@ function validateForm () {
 
   const btnvalidate = document.getElementById("validate");
 
+
   // Si les 3 champs sont remplis
-  if (image !== "" && title !== "" && categorie !== "" ) {
+  //if (image !== "" && title !== "" && categorie !== "" ) {
     //Le bouton "Valider" aura le background-color vert 
     btnvalidate.style.backgroundColor ="#1D6154";
 
@@ -156,6 +158,7 @@ function validateForm () {
     btnvalidate.addEventListener('click', function(event_validate) {
       event_validate.preventDefault();
       console.log("Le bouton Valider a été cliqué !");
+      alert("Bouton validé");
     
       fetch('http://localhost:5678/api/works', {
         method: "POST",
@@ -163,21 +166,44 @@ function validateForm () {
           "Accept": "application/json",
           "Content-Type": "multipart/form-data", 
         },
-        body: JSON.stringify({
-          image: image,
-          title: title,
-          category: categorie
-        }),
+        //body: JSON.stringify({
+         //image: image,
+         // title: title,
+         // category: categorie
+        //}),
+        body : formData
       
       })
   
       .then(response => {
         if (response.status === 201) {
           return response.json();
+
         } else if (response.status >= 400) {
             throw new Error('Erreur de connexion');
         }
       })
+
+      .then((works) =>{
+        console.log(works);
+        alert(works);
+        //const newProjectElement = createProjectElement(image, title, categorie);
+        //const gallery = document.querySelector(".gallery");
+        //gallery.appendChild(newProjectElement);
+        //const galleryModal = document.querySelector(".gallerymodal");
+        //galleryModal.appendChild(newProjectElement);
+
+        const gallery = document.querySelector(".gallery");
+        works.forEach(work => {
+        const newProjectElement = createProjectElement(work.imageUrl, work.title, work.category); // Utilisez les données de chaque élément de works
+        gallery.appendChild(newProjectElement);
+        });
+
+
+
+      })
+
+
   
       .catch (error => {
         console.error('Erreur', error);
@@ -185,13 +211,34 @@ function validateForm () {
       });
   
     });
-  } else if (image && title && categorie === "") {
-    alert("Veuillez remplir tous les champs visibles.");
-    btnvalidate.style.backgroundColor ="#A7A7A7";
-  }
+  //} else if (image === "" && title === "" && categorie === "") {
+    //alert("Veuillez remplir tous les champs visibles.");
+    //btnvalidate.style.backgroundColor ="#A7A7A7";
+  //}
 }
 
+function createProjectElement(image, title, categorie) {
 
+  works.forEach(function(work) {
+  
+    let figureModal = document.createElement("figure");
+    const imageModal = document.createElement("img");
+    const figcaptionModal = document.createElement("figcaption");
+    let trashModal = document.createElement("i");
+    
+    imageModal.src=work.imageUrl;
+    imageModal.alt=work.title;
+    figcaptionModal.innerText=work.title;
+    trashModal.className= 'fa-solid fa-trash-can trash';
+
+    figureModal.appendChild(imageModal);
+    figureModal.appendChild(figcaptionModal);
+    figureModal.appendChild(trashModal);
+  
+  return figureModal;
+  })
+
+}
 
 //Suppression de travaux existants
 //function deleteWorks () {
