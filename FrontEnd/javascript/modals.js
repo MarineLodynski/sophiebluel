@@ -136,9 +136,9 @@ function showPreview(event) {
 //Changement couleur bouton Valider
 function validateForm () {
   const modalF = document.querySelector(".new-form");
-  const formData = new formData(modalF);
+  const formData = new FormData(modalF);
   console.log(formData);
-  const file = document.querySelector("#file");
+  //const file = document.querySelector("#file");
 
   // Les trois champs du formulaire pour la vérification
   const image = formData.get("image");
@@ -148,13 +148,14 @@ function validateForm () {
   const btnvalidate = document.getElementById("validate");
 
   // Si les 3 champs sont remplis
-  if (image.value && title.value && categorie.value ) {
+  if (image !== "" && title !== "" && categorie !== "" ) {
     //Le bouton "Valider" aura le background-color vert 
     btnvalidate.style.backgroundColor ="#1D6154";
 
     //On pourra alors cliquer sur le bouton pour ajouter ce nouveau projet
     btnvalidate.addEventListener('click', function(event_validate) {
       event_validate.preventDefault();
+      console.log("Le bouton Valider a été cliqué !");
     
       fetch('http://localhost:5678/api/works', {
         method: "POST",
@@ -163,9 +164,9 @@ function validateForm () {
           "Content-Type": "multipart/form-data", 
         },
         body: JSON.stringify({
-          image: "url_de_l_image",
-          title: "le_titre",
-          category: "la_categorie"
+          image: image,
+          title: title,
+          category: categorie
         }),
       
       })
@@ -184,41 +185,107 @@ function validateForm () {
       });
   
     });
+  } else if (image && title && categorie === "") {
+    alert("Veuillez remplir tous les champs visibles.");
+    btnvalidate.style.backgroundColor ="#A7A7A7";
   }
 }
 
 
 
+//Suppression de travaux existants
+//function deleteWorks () {
+//  for (const work of works) {
+  //  const deleteIcon = document.createElement("i");
+    //deleteIcon.className = "fa-solid fa-trash-can trash";
 
-// Suppression de travaux existants
-//let trashModal = document.createElement("i");
-//trashModal.addEventListener('click', function(event_trash) {
-  //event_trash.preventDefault();
+    //deleteIcon.addEventListener("click", async function (event) {
+      //  event.preventDefault(); 
+
+        //  fetch('http://localhost:5678/api/works/${workId}', {
+          //  method: "DELETE",
+            //headers: { 
+              //"Accept": "*/*",
+            //},
+          //})
+
+          //.then((response) => {	
+            //if (response.ok){
+              //console.log("L'image a été supprimée avec succès.")
+              //return response.json();
+            //} else if (response.status >= 401) {
+              //throw new Error ("Erreur, veuillez recommencer.")
+            //}
+          //})
+
+
+          //.catch (error => {
+            //console.error('Erreur', error)
+          //});
+
+    //})
+        //suppressionImage(work, items, containerModal);
+    //});
+  //}
+
+//}
+
+//function suppressionImage(work, items, containerModal) {
+  //let workID = work.id; 
   
-  //fetch('http://localhost:5678/api/works/${id}', {
-    //method: "DELETE",
-    //headers: { 
-     //"Accept": "*/*",
-    //},
-  //})
+ // for (let i = 0; i < items.length; i++) {
+     // if (items[i].id === workID) {
+     //     items.splice(i, 1);
+     //     break; 
+     // }
+  //}
+  
+ // let elementToRemove = document.getElementById(workID);
+  //if (elementToRemove) {
+    //  containerModal.removeChild(elementToRemove);
+ // }
+//}
 
- // .then((response) => {	
-   // if (response.ok){
-      //console.log("L'image a été supprimée avec succès.")
-     // return response.json();
-   // } else if (response.status >= 401) {
-      //throw new Error ("Erreur, veuillez recommencer.")
-    //}
-  //})
+//Suppression de travaux existants
+//works.forEach(async (work) => {
 
-  //.then ((works) => {
+  //const deleteIcon = document.createElement("i");
+  //deleteIcon.className = "fa fa-trash";
+
+  //deleteIcon.addEventListener("click", async function (event) {
+    //event.preventDefault(); 
+
+
+    //fetch('http://localhost:5678/api/works/${workId}', {
+    //  method: "DELETE",
+     // headers: { 
+     //   "Accept": "*/*",
+     // },
+    //})
+
+  //  .then((response) => {	
+    //  if (response.ok){
+     //   console.log("L'image a été supprimée avec succès.")
+     //   return response.json();
+    //  } else if (response.status >= 401) {
+    //    throw new Error ("Erreur, veuillez recommencer.")
+   //   }
+   // })
+
+
+    //.catch (error => {
+    //  console.error('Erreur', error)
+   // });
+
+
+    //suppressionImage(work, items, containerModal);
     
-    
-    
-  //}) 
 
-  //.catch (error => {
-   // console.error('Erreur', error)
-  //});
+ // });
 
-//})
+//});
+
+//function suppressionImage(work,items,containerModal){
+  //let workID = work.id
+
+//}
