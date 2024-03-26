@@ -135,92 +135,68 @@ function showPreview(event) {
 
 
 //Changement couleur bouton Valider + Ajout travaux
-function addWork (event) {
-  event.preventDefault();
+//function addWork (event) {
+ // event.preventDefault();
 
   // Les trois champs du formulaire pour la vérification
-  //const image = formData.get("image");
-  //const title = formData.get("title");
-  //const categorie = formData.get("category");
-  
-  const formData = new FormData(form);
-  formData.set("image", image.files[0]);
+  //const formData = new FormData(form);
+  //formData.set("image", "");
+  //formData.set("title", ""); 
+  //formData.set("category", ""); 
 
-  //const btnvalidate = document.getElementById("validate");
+ // const token = localStorage.getItem("token");
+
+     // fetch('http://localhost:5678/api/works', {
+       // method: "POST",
+       // headers: { 
+        //  "Accept": "application/json",
+        //  "Content-Type": "multipart/form-data", 
+        //  "Authorization": `Bearer ${token}`
+        //},
+       // body : formData
+      
+      //})
+  
+     // .then(response => {
+      //  if (response.status === 201) {
+      //    return response.json();
+      //  } 
+     // })
+
+     // .then((works) =>{
+       // console.log(works);
+
+      //  const gallery = document.querySelector(".gallery");
+      //  const newWork = document.createElement('figure');
+      //  newWork.dataset.id = result.id;
+      //  gallery.appendChild(newWork);
+
+        //modal1.style.display="flex";
+        //modal2.style.display="none";
+      //})
+
+
+  
+      //.catch (error => {
+      //  console.error('Erreur', error);
+       // alert("Une erreur est survenue. Veuillez recommencer.")
+     // });
+  
+   
+//}
+
+//const form = document.querySelector(".form-new");
+//form.addEventListener("submit", addWork );
+
+
+//function colorValidate
+//const btnvalidate = document.getElementById("validate");
 
 
   // Si les 3 champs sont remplis
   //if (image !== "" && title !== "" && categorie !== "" ) {
     //Le bouton "Valider" aura le background-color vert 
    // btnvalidate.style.backgroundColor ="#1D6154";
-
-    //On pourra alors cliquer sur le bouton pour ajouter ce nouveau projet
-    //btnvalidate.addEventListener('click', function(event_validate) {
-     // event_validate.preventDefault();
-      //console.log("Le bouton Valider a été cliqué !");
-      //alert("Bouton validé");
-    
-      fetch('http://localhost:5678/api/works', {
-        method: "POST",
-        headers: { 
-          "Accept": "application/json",
-          "Content-Type": "multipart/form-data", 
-        },
-        //body: JSON.stringify({
-         //image: image,
-         // title: title,
-         // category: categorie
-        //}),
-        body : formData
-      
-      })
-  
-      .then(response => {
-        if (response.status === 201) {
-          return response.json();
-
-        } 
-      })
-
-      .then((works) =>{
-        console.log(works);
-
-        const gallery = document.querySelector(".gallery");
-        const newWork = document.createElement('figure');
-        newWork.dataset.id = result.id;
-        gallery.appendChild(newWork);
-      })
-
-
-  
-      .catch (error => {
-        console.error('Erreur', error);
-        alert("Une erreur est survenue. Veuillez recommencer.")
-      });
-  
-    //});
-  //} else if (image === "" && title === "" && categorie === "") {
-    //alert("Veuillez remplir tous les champs visibles.");
-    //btnvalidate.style.backgroundColor ="#A7A7A7";
-  //}
-}
-
-
-function refreshGallery () {
-
-  
-  modal1.style.display="flex";
-  modal2.style.display="none";
-  
-
-}
-
-
-const form = document.querySelector("form-new");
-form.addEventListener("submit", addWork );
-
-
-
 
 
 
@@ -230,40 +206,32 @@ form.addEventListener("submit", addWork );
   //const deleteIcon = document.createElement("i");
   //deleteIcon.className = "fa fa-trash";
 
-  //deleteIcon.addEventListener("click", async function (event) {
-    //event.preventDefault(); 
+deleteIcon.addEventListener("click", async function (event) {
+    event.preventDefault(); 
 
 
-    //fetch('http://localhost:5678/api/works/${workId}', {
-    //  method: "DELETE",
-     // headers: { 
-     //   "Accept": "*/*",
-     // },
-    //})
+    fetch('http://localhost:5678/api/works/${workId}', {
+      method: "DELETE",
+      headers: { 
+        "Accept": "*/*",
+      },
+    })
 
-  //  .then((response) => {	
-    //  if (response.ok){
-     //   console.log("L'image a été supprimée avec succès.")
-     //   return response.json();
-    //  } else if (response.status >= 401) {
-    //    throw new Error ("Erreur, veuillez recommencer.")
-   //   }
-   // })
-
-
-    //.catch (error => {
-    //  console.error('Erreur', error)
-   // });
+    .then((response) => {	
+      if (response.ok){
+       console.log("L'image a été supprimée avec succès.")
+       return response.json();
+      } else if (response.status >= 401) {
+        throw new Error ("Erreur, veuillez recommencer.")
+      }
+    })
 
 
-    //suppressionImage(work, items, containerModal);
-    
+    .catch (error => {
+      console.error('Erreur', error)
+    });
 
- // });
+});
 
-//});
 
-//function suppressionImage(work,items,containerModal){
-  //let workID = work.id
 
-//}
