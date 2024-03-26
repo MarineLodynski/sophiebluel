@@ -135,30 +135,30 @@ function showPreview(event) {
 
 
 //Changement couleur bouton Valider + Ajout travaux
-function validateForm () {
-  const modalF = document.querySelector(".new-form");
-  const formData = new FormData(modalF);
-  console.log(formData);
-  //const file = document.querySelector("#file");
+function addWork (event) {
+  event.preventDefault();
 
   // Les trois champs du formulaire pour la vérification
-  const image = formData.get("image");
-  const title = formData.get("title");
-  const categorie = formData.get("category");
+  //const image = formData.get("image");
+  //const title = formData.get("title");
+  //const categorie = formData.get("category");
+  
+  const formData = new FormData(form);
+  formData.set("image", image.files[0]);
 
-  const btnvalidate = document.getElementById("validate");
+  //const btnvalidate = document.getElementById("validate");
 
 
   // Si les 3 champs sont remplis
   //if (image !== "" && title !== "" && categorie !== "" ) {
     //Le bouton "Valider" aura le background-color vert 
-    btnvalidate.style.backgroundColor ="#1D6154";
+   // btnvalidate.style.backgroundColor ="#1D6154";
 
     //On pourra alors cliquer sur le bouton pour ajouter ce nouveau projet
-    btnvalidate.addEventListener('click', function(event_validate) {
-      event_validate.preventDefault();
-      console.log("Le bouton Valider a été cliqué !");
-      alert("Bouton validé");
+    //btnvalidate.addEventListener('click', function(event_validate) {
+     // event_validate.preventDefault();
+      //console.log("Le bouton Valider a été cliqué !");
+      //alert("Bouton validé");
     
       fetch('http://localhost:5678/api/works', {
         method: "POST",
@@ -179,28 +179,16 @@ function validateForm () {
         if (response.status === 201) {
           return response.json();
 
-        } else if (response.status >= 400) {
-            throw new Error('Erreur de connexion');
-        }
+        } 
       })
 
       .then((works) =>{
         console.log(works);
-        alert(works);
-        //const newProjectElement = createProjectElement(image, title, categorie);
-        //const gallery = document.querySelector(".gallery");
-        //gallery.appendChild(newProjectElement);
-        //const galleryModal = document.querySelector(".gallerymodal");
-        //galleryModal.appendChild(newProjectElement);
 
         const gallery = document.querySelector(".gallery");
-        works.forEach(work => {
-        const newProjectElement = createProjectElement(work.imageUrl, work.title, work.category); // Utilisez les données de chaque élément de works
-        gallery.appendChild(newProjectElement);
-        });
-
-
-
+        const newWork = document.createElement('figure');
+        newWork.dataset.id = result.id;
+        gallery.appendChild(newWork);
       })
 
 
@@ -210,88 +198,31 @@ function validateForm () {
         alert("Une erreur est survenue. Veuillez recommencer.")
       });
   
-    });
+    //});
   //} else if (image === "" && title === "" && categorie === "") {
     //alert("Veuillez remplir tous les champs visibles.");
     //btnvalidate.style.backgroundColor ="#A7A7A7";
   //}
 }
 
-function createProjectElement(image, title, categorie) {
 
-  works.forEach(function(work) {
-  
-    let figureModal = document.createElement("figure");
-    const imageModal = document.createElement("img");
-    const figcaptionModal = document.createElement("figcaption");
-    let trashModal = document.createElement("i");
-    
-    imageModal.src=work.imageUrl;
-    imageModal.alt=work.title;
-    figcaptionModal.innerText=work.title;
-    trashModal.className= 'fa-solid fa-trash-can trash';
+function refreshGallery () {
 
-    figureModal.appendChild(imageModal);
-    figureModal.appendChild(figcaptionModal);
-    figureModal.appendChild(trashModal);
   
-  return figureModal;
-  })
+  modal1.style.display="flex";
+  modal2.style.display="none";
+  
 
 }
 
-//Suppression de travaux existants
-//function deleteWorks () {
-//  for (const work of works) {
-  //  const deleteIcon = document.createElement("i");
-    //deleteIcon.className = "fa-solid fa-trash-can trash";
 
-    //deleteIcon.addEventListener("click", async function (event) {
-      //  event.preventDefault(); 
-
-        //  fetch('http://localhost:5678/api/works/${workId}', {
-          //  method: "DELETE",
-            //headers: { 
-              //"Accept": "*/*",
-            //},
-          //})
-
-          //.then((response) => {	
-            //if (response.ok){
-              //console.log("L'image a été supprimée avec succès.")
-              //return response.json();
-            //} else if (response.status >= 401) {
-              //throw new Error ("Erreur, veuillez recommencer.")
-            //}
-          //})
+const form = document.querySelector("form-new");
+form.addEventListener("submit", addWork );
 
 
-          //.catch (error => {
-            //console.error('Erreur', error)
-          //});
 
-    //})
-        //suppressionImage(work, items, containerModal);
-    //});
-  //}
 
-//}
 
-//function suppressionImage(work, items, containerModal) {
-  //let workID = work.id; 
-  
- // for (let i = 0; i < items.length; i++) {
-     // if (items[i].id === workID) {
-     //     items.splice(i, 1);
-     //     break; 
-     // }
-  //}
-  
- // let elementToRemove = document.getElementById(workID);
-  //if (elementToRemove) {
-    //  containerModal.removeChild(elementToRemove);
- // }
-//}
 
 //Suppression de travaux existants
 //works.forEach(async (work) => {
