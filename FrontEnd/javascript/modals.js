@@ -196,19 +196,24 @@ function showPreview(event) {
   // Si les 3 champs sont remplis
   //if (image !== "" && title !== "" && categorie !== "" ) {
     //Le bouton "Valider" aura le background-color vert 
-   // btnvalidate.style.backgroundColor ="#1D6154";
+// btnvalidate.style.backgroundColor ="#1D6154";
+
+
 
 
 
 //Suppression de travaux existants
-//works.forEach(async (work) => {
 
-  //const deleteIcon = document.createElement("i");
-  //deleteIcon.className = "fa fa-trash";
+async function refreshGallery (event) {
+  event.preventDefault();
 
-deleteIcon.addEventListener("click", async function (event) {
-    event.preventDefault(); 
+  //let wordId = work.id;
+  //const workId = event.target.dataset.workId;
 
+  const workId = event.currentTarget.dataset.workId;
+
+  
+  console.log("ID du travail:", workId);
 
     fetch('http://localhost:5678/api/works/${workId}', {
       method: "DELETE",
@@ -218,9 +223,10 @@ deleteIcon.addEventListener("click", async function (event) {
     })
 
     .then((response) => {	
-      if (response.ok){
+      if (response.status === 200){
        console.log("L'image a été supprimée avec succès.")
-       return response.json();
+       //return response.json();
+       document.querySelector(`figure[data-id="${workId}"]`).remove();
       } else if (response.status >= 401) {
         throw new Error ("Erreur, veuillez recommencer.")
       }
@@ -228,10 +234,14 @@ deleteIcon.addEventListener("click", async function (event) {
 
 
     .catch (error => {
-      console.error('Erreur', error)
+      console.error('Erreur', error);
+      alert("Une erreur est survenue. Veuillez recommencer.");
     });
+}
 
-});
+
+let deleteIcon = document.querySelector(".trash");
+deleteIcon.addEventListener("click",  refreshGallery);
 
 
 
