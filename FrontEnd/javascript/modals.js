@@ -135,58 +135,99 @@ function showPreview(event) {
 
 
 //Changement couleur bouton Valider + Ajout travaux
-//function addWork (event) {
- // event.preventDefault();
+async function addWork (event) {
+ event.preventDefault();
 
   // Les trois champs du formulaire pour la vérification
-  //const formData = new FormData(form);
+  const formData = new FormData(form);
   //formData.set("image", "");
   //formData.set("title", ""); 
   //formData.set("category", ""); 
 
- // const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
+  console.log(token);
+  //console.log(formData.values());
 
-     // fetch('http://localhost:5678/api/works', {
-       // method: "POST",
-       // headers: { 
-        //  "Accept": "application/json",
-        //  "Content-Type": "multipart/form-data", 
-        //  "Authorization": `Bearer ${token}`
-        //},
-       // body : formData
+
+  //const resultat = await fetch('http://localhost:5678/api/works', {
+    //method: "POST",
+    //headers: { 
+    // "Accept": "application/json",
+    // "Content-Type": "multipart/form-data", 
+    // 'Authorization': 'Bearer ' + localStorage.getItem('token')
+    // },
+    // body : formData
+   
+  // });
+
+  //const photos = await resultat.json();
+
+  const headers = {
+    Authorization: `Bearer ${token}`,
+  };
+ console.log(formData)
+  try {
+    
+    const response = await fetch('http://localhost:5678/api/works', {
+        method: "POST",
+        body: formData,
+        headers: headers,
+        
+    });
+  
+
+  } catch (error) {
+  console.error("Erreur lors de l'envoi des données :", error);
+  }
+
+
+  for (const value of formData.values()) {
+    console.log(value);
+  };
+
+     await fetch('http://localhost:5678/api/works', {
+       method: "POST",
+       headers: { 
+        //"Accept": "application/json",
+        //"Content-Type": "multipart/form-data", 
+        //"Authorization": `Bearer ${token}`
+        'Authorization': 'Bearer ' + localStorage.getItem('token')
+        },
+        body : formData
       
-      //})
+      })
   
-     // .then(response => {
-      //  if (response.status === 201) {
-      //    return response.json();
-      //  } 
-     // })
+     .then(response => {
+      console.log(response.json());
+      if (response.status === 201) {
+          return response.json();
+        } 
+      })
 
-     // .then((works) =>{
-       // console.log(works);
+     .then((works) =>{
+        console.log(works);
 
-      //  const gallery = document.querySelector(".gallery");
-      //  const newWork = document.createElement('figure');
-      //  newWork.dataset.id = result.id;
-      //  gallery.appendChild(newWork);
+        const gallery = document.querySelector(".gallery");
+        const newWork = document.createElement('figure');
+        //newWork.dataset.id = result.id;
+        gallery.appendChild(newWork);
 
-        //modal1.style.display="flex";
-        //modal2.style.display="none";
-      //})
+        modal1.style.display="flex";
+        modal2.style.display="none";
+      })
 
 
   
-      //.catch (error => {
-      //  console.error('Erreur', error);
-       // alert("Une erreur est survenue. Veuillez recommencer.")
-     // });
+      .catch (error => {
+        console.error('Erreur', error);
+        alert("Une erreur est survenue. Veuillez recommencer.")
+      });
   
    
-//}
+}
 
-//const form = document.querySelector(".form-new");
-//form.addEventListener("submit", addWork );
+const form = document.querySelector(".form-new");
+form.addEventListener("submit", addWork );
 
 
 //function colorValidate
@@ -204,44 +245,65 @@ function showPreview(event) {
 
 //Suppression de travaux existants
 
-async function refreshGallery (event) {
+function refreshGallery (event) {
   event.preventDefault();
-
-  //let wordId = work.id;
-  //const workId = event.target.dataset.workId;
-
-  const workId = event.currentTarget.dataset.workId;
+  const token = localStorage.getItem("token");
+  const workId = event.target.dataset.workId;
+  //const gallery = document.querySelector(".gallery");
+  //const galleryModal = document.querySelector(".gallerymodal");
 
   
-  console.log("ID du travail:", workId);
+  fetch('http://localhost:5678/api/works/${workId}', {
+    method: "DELETE",
+    headers: { 
+      "Accept": "*/*",
+      "Authorization": `Bearer ${token}`
+    },
+  })
 
-    fetch('http://localhost:5678/api/works/${workId}', {
-      method: "DELETE",
-      headers: { 
-        "Accept": "*/*",
-      },
-    })
+  .then((response) => {	
+    if (response.status === 200){
+      console.log("L'image a été supprimée avec succès.")
+      //return response.json();
+      //works.remove();
+      //document.querySelector(`figure[data-id="${workId}"]`).remove();
 
-    .then((response) => {	
-      if (response.status === 200){
-       console.log("L'image a été supprimée avec succès.")
-       //return response.json();
-       document.querySelector(`figure[data-id="${workId}"]`).remove();
-      } else if (response.status >= 401) {
-        throw new Error ("Erreur, veuillez recommencer.")
-      }
-    })
+      //const work = document.querySelectorAll(`figure[data-id="${workId}"]`);
+     // gallery.remove(work);
+      //galleryModal.remove(work);
+
+      works.forEach (work => {
+        document.querySelectorAll(`figure[data-id="${workId}"]`);
+      })
+      //
+      //console.log(work);
+      //work.remove();
+
+      // Supprimer chaque élément de la galerie
+     // work.forEach(item => {
+        //item.parentNode.removeChild(item); 
+     // });
+
+     
+    } else if (response.status >= 401) {
+      throw new Error ("Erreur, veuillez recommencer.")
+    }
+  })
+
+  //.then((works) => {
+
+  //
+  //})
 
 
-    .catch (error => {
-      console.error('Erreur', error);
-      alert("Une erreur est survenue. Veuillez recommencer.");
-    });
+  .catch (error => {
+    console.error('Erreur', error);
+     alert("Une erreur est survenue. Veuillez recommencer.");
+  });
 }
 
-
-let deleteIcon = document.querySelector(".trash");
-deleteIcon.addEventListener("click",  refreshGallery);
-
-
-
+//Chaque icône "poubelle" aura un évènement 
+const deleteIcons = document.querySelectorAll(".trash");
+deleteIcons.forEach(deleteIcon => {
+  deleteIcon.addEventListener("click", refreshGallery);
+});
