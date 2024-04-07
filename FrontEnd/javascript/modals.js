@@ -135,17 +135,17 @@ function showPreview(event) {
 
 
 //Changement couleur bouton Valider + Ajout travaux
-async function addWork (event) {
- event.preventDefault();
+/*//async function addWork (event) {
+ //event.preventDefault();
 
   // Les trois champs du formulaire pour la vérification
-  const formData = new FormData(form);
+  //const formData = new FormData(form);
   //formData.set("image", "");
   //formData.set("title", ""); 
   //formData.set("category", ""); 
 
-  const token = localStorage.getItem("token");
-  console.log(token);
+  //const token = localStorage.getItem("token");
+  //console.log(token);
   //console.log(formData.values());
 
 
@@ -162,7 +162,7 @@ async function addWork (event) {
 
   //const photos = await resultat.json();
 
-  const headers = {
+  //const headers = {
     Authorization: `Bearer ${token}`,
   };
  console.log(formData)
@@ -224,7 +224,32 @@ async function addWork (event) {
       });
   
    
+}*/
+
+async function addWork (event) {
+  event.preventDefault();
+   // Les trois champs du formulaire pour la vérification
+   const formData = new FormData(document.getElementById("form-new"));
+   const token = localStorage.getItem("token");
+   const resultat = await fetch('http://localhost:5678/api/works', {
+     method: "POST",
+     headers: {
+     'Authorization': 'Bearer ' + localStorage.getItem('token')
+     },
+     body : formData
+   });
+   const photos = await resultat.json();
+
+   
+   const gallery = document.querySelector(".gallery");
+    const newWork = document.createElement('figure');
+        
+    gallery.appendChild(newWork);
+
+    modal1.style.display="flex";
+    modal2.style.display="none";
 }
+
 
 const form = document.querySelector(".form-new");
 form.addEventListener("submit", addWork );
@@ -245,7 +270,7 @@ form.addEventListener("submit", addWork );
 
 //Suppression de travaux existants
 
-function refreshGallery (event) {
+/*//function refreshGallery (event) {
   event.preventDefault();
   const token = localStorage.getItem("token");
   const workId = event.target.dataset.workId;
@@ -256,14 +281,14 @@ function refreshGallery (event) {
   fetch('http://localhost:5678/api/works/${workId}', {
     method: "DELETE",
     headers: { 
-      "Accept": "*/*",
-      "Authorization": `Bearer ${token}`
-    },
-  })
+      //"Accept": "*/
+     // "Authorization": `Bearer ${token}`
+    //},
+  //})
 
-  .then((response) => {	
-    if (response.status === 200){
-      console.log("L'image a été supprimée avec succès.")
+  //.then((response) => {	
+   // if (response.status === 200){
+      //console.log("L'image a été supprimée avec succès.")
       //return response.json();
       //works.remove();
       //document.querySelector(`figure[data-id="${workId}"]`).remove();
@@ -272,9 +297,9 @@ function refreshGallery (event) {
      // gallery.remove(work);
       //galleryModal.remove(work);
 
-      works.forEach (work => {
-        document.querySelectorAll(`figure[data-id="${workId}"]`);
-      })
+      //works.forEach (work => {
+      //  document.querySelectorAll(`figure[data-id="${workId}"]`);
+      //})
       //
       //console.log(work);
       //work.remove();
@@ -285,23 +310,46 @@ function refreshGallery (event) {
      // });
 
      
-    } else if (response.status >= 401) {
-      throw new Error ("Erreur, veuillez recommencer.")
-    }
-  })
-
-  //.then((works) => {
-
-  //
+   // } else if (response.status >= 401) {
+      //throw new Error ("Erreur, veuillez recommencer.")
+    //}
   //})
 
+ // .catch (error => {
+   // console.error('Erreur', error);
+    // alert("Une erreur est survenue. Veuillez recommencer.");
+  //});
+//}*/
 
-  .catch (error => {
-    console.error('Erreur', error);
-     alert("Une erreur est survenue. Veuillez recommencer.");
-  });
+async function refreshGallery(event) {
+  event.preventDefault();
+
+  // Récupérer l'identifiant du projet à supprimer
+  const workId = event.target.dataset.workId;
+
+  // Récupérer le token d'authentification
+  const token = localStorage.getItem("token");
+
+  try {
+    // Effectuer une requête DELETE pour supprimer le projet
+    const resultat = await fetch(`http://localhost:5678/api/works/${workId}`, {
+      method: "DELETE",
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    });
+
+    if (resultat.ok) {
+      // Si la suppression réussit, mettre à jour l'interface utilisateur (par exemple, actualiser la galerie)
+      const photos = await resultat.json();
+      // Code pour actualiser la galerie (à compléter en fonction de votre implémentation)
+    } else {
+      console.error('Erreur lors de la suppression du projet:', resultat.status);
+    }
+  } catch (erreur) {
+    console.error('Erreur lors de la requête DELETE:', erreur);
+  }
 }
-
 //Chaque icône "poubelle" aura un évènement 
 const deleteIcons = document.querySelectorAll(".trash");
 deleteIcons.forEach(deleteIcon => {
