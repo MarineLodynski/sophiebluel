@@ -228,26 +228,46 @@ function showPreview(event) {
 
 async function addWork (event) {
   event.preventDefault();
-   // Les trois champs du formulaire pour la vérification
-   const formData = new FormData(document.getElementById("form-new"));
-   const token = localStorage.getItem("token");
-   const resultat = await fetch('http://localhost:5678/api/works', {
-     method: "POST",
-     headers: {
-     'Authorization': 'Bearer ' + localStorage.getItem('token')
-     },
-     body : formData
-   });
-   const photos = await resultat.json();
+  // Le formulaire pour la vérification
+  const formData = new FormData(document.getElementById("form-new"));
+  const token = localStorage.getItem("token");
+  const resultat = await fetch('http://localhost:5678/api/works', {
+    method: "POST",
+    headers: {
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+    },
+    body : formData
+  });
+  const work = await resultat.json();
+  // voir les works si on voit toutes les informations
+  console.log(work);
 
-   
-   const gallery = document.querySelector(".gallery");
-    const newWork = document.createElement('figure');
-        
-    gallery.appendChild(newWork);
+  //Les deux galeries
+  const gallery = document.querySelector(".gallery");
+  //const galleryModal = document.querySelector(".gallerymodal");
 
-    modal1.style.display="flex";
-    modal2.style.display="none";
+  // Structure / construction image
+  const newWork = document.createElement('figure');
+    
+  const newImage = document.createElement('img');
+  newImage.src = work.imageUrl;
+
+  const newTitle = document.createElement('figcaption');
+  newTitle.innerHTML = work.title;
+
+  newWork.dataset.id = work.id;
+
+  //Appartenances
+  newWork.appendChild(newImage);
+  newWork.appendChild(newTitle);
+  gallery.appendChild(newWork);
+  //galleryModal.appendChild(newWork);
+
+
+  
+  // Faire apparaître à nouveau la première modale
+  modal1.style.display="flex";
+  modal2.style.display="none";
 }
 
 
