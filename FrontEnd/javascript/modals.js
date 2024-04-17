@@ -244,7 +244,7 @@ async function addWork (event) {
 
   //Les deux galeries
   const gallery = document.querySelector(".gallery");
-  //const galleryModal = document.querySelector(".gallerymodal");
+  const galleryModal = document.querySelector(".gallerymodal");
 
   // Structure / construction image
   const newWork = document.createElement('figure');
@@ -252,18 +252,19 @@ async function addWork (event) {
   const newImage = document.createElement('img');
   newImage.src = work.imageUrl;
 
+  console.log(work.imageUrl);
   const newTitle = document.createElement('figcaption');
-  newTitle.innerHTML = work.title;
+  newTitle.textContent = work.title;
 
-  newWork.dataset.id = work.id;
+  //newWork.dataset.id = work.id;
+  newWork.setAttribute("workID", work.id);
 
   //Appartenances
   newWork.appendChild(newImage);
   newWork.appendChild(newTitle);
   gallery.appendChild(newWork);
-  //galleryModal.appendChild(newWork);
-
-
+  galleryModal.appendChild(newWork);
+  
   
   // Faire apparaître à nouveau la première modale
   modal1.style.display="flex";
@@ -283,10 +284,6 @@ form.addEventListener("submit", addWork );
   //if (image !== "" && title !== "" && categorie !== "" ) {
     //Le bouton "Valider" aura le background-color vert 
 // btnvalidate.style.backgroundColor ="#1D6154";
-
-
-
-
 
 //Suppression de travaux existants
 
@@ -360,9 +357,10 @@ async function refreshGallery(event) {
     });
 
     if (resultat.ok) {
-      // Si la suppression réussit, mettre à jour l'interface utilisateur (par exemple, actualiser la galerie)
-      const photos = await resultat.json();
-      // Code pour actualiser la galerie (à compléter en fonction de votre implémentation)
+      
+      const work = await resultat.json();
+      console.log(work);
+      
     } else {
       console.error('Erreur lors de la suppression du projet:', resultat.status);
     }
@@ -371,7 +369,9 @@ async function refreshGallery(event) {
   }
 }
 //Chaque icône "poubelle" aura un évènement 
-const deleteIcons = document.querySelectorAll(".trash");
-deleteIcons.forEach(deleteIcon => {
-  deleteIcon.addEventListener("click", refreshGallery);
-});
+//const deleteIcons = document.querySelectorAll(".trash");
+//deleteIcons.forEach(deleteIcon => {
+ // deleteIcon.addEventListener("click", refreshGallery);
+//});
+//const deleteIcon = document.querySelector(".trash");
+//deleteIcon.addEventListener("click", refreshGallery);
