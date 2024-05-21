@@ -133,222 +133,115 @@ function showPreview(event) {
   }
 }
 
-
-//Changement couleur bouton Valider + Ajout travaux
-/*//async function addWork (event) {
- //event.preventDefault();
-
-  // Les trois champs du formulaire pour la vérification
-  //const formData = new FormData(form);
-  //formData.set("image", "");
-  //formData.set("title", ""); 
-  //formData.set("category", ""); 
-
-  //const token = localStorage.getItem("token");
-  //console.log(token);
-  //console.log(formData.values());
-
-
-  //const resultat = await fetch('http://localhost:5678/api/works', {
-    //method: "POST",
-    //headers: { 
-    // "Accept": "application/json",
-    // "Content-Type": "multipart/form-data", 
-    // 'Authorization': 'Bearer ' + localStorage.getItem('token')
-    // },
-    // body : formData
-   
-  // });
-
-  //const photos = await resultat.json();
-
-  //const headers = {
-    Authorization: `Bearer ${token}`,
-  };
- console.log(formData)
-  try {
-    
-    const response = await fetch('http://localhost:5678/api/works', {
-        method: "POST",
-        body: formData,
-        headers: headers,
-        
-    });
-  
-
-  } catch (error) {
-  console.error("Erreur lors de l'envoi des données :", error);
-  }
-
-
-  for (const value of formData.values()) {
-    console.log(value);
-  };
-
-     await fetch('http://localhost:5678/api/works', {
-       method: "POST",
-       headers: { 
-        //"Accept": "application/json",
-        //"Content-Type": "multipart/form-data", 
-        //"Authorization": `Bearer ${token}`
-        'Authorization': 'Bearer ' + localStorage.getItem('token')
-        },
-        body : formData
-      
-      })
-  
-     .then(response => {
-      console.log(response.json());
-      if (response.status === 201) {
-          return response.json();
-        } 
-      })
-
-     .then((works) =>{
-        console.log(works);
-
-        const gallery = document.querySelector(".gallery");
-        const newWork = document.createElement('figure');
-        //newWork.dataset.id = result.id;
-        gallery.appendChild(newWork);
-
-        modal1.style.display="flex";
-        modal2.style.display="none";
-      })
-
-
-  
-      .catch (error => {
-        console.error('Erreur', error);
-        alert("Une erreur est survenue. Veuillez recommencer.")
-      });
-  
-   
-}*/
-
-async function addWork (event) {
-  event.preventDefault();
-  // Le formulaire pour la vérification
-  const formData = new FormData(document.getElementById("form-new"));
-  const token = localStorage.getItem("token");
-  const resultat = await fetch('http://localhost:5678/api/works', {
-    method: "POST",
-    headers: {
-    'Authorization': 'Bearer ' + localStorage.getItem('token')
-    },
-    body : formData
-  });
-  const work = await resultat.json();
-  // voir les works si on voit toutes les informations
-  console.log(work);
-
-  //Les deux galeries
-  const gallery = document.querySelector(".gallery");
-  const galleryModal = document.querySelector(".gallerymodal");
-
-  // Structure / construction image
-  const newWork = document.createElement('figure');
-    
-  const newImage = document.createElement('img');
-  newImage.src = work.imageUrl;
-
-  console.log(work.imageUrl);
-  const newTitle = document.createElement('figcaption');
-  newTitle.textContent = work.title;
-
-  //newWork.dataset.id = work.id;
-  newWork.setAttribute("workID", work.id);
-
-  //Appartenances
-  newWork.appendChild(newImage);
-  newWork.appendChild(newTitle);
-  gallery.appendChild(newWork);
-  galleryModal.appendChild(newWork);
-  
-  
-  // Faire apparaître à nouveau la première modale
-  modal1.style.display="flex";
-  modal2.style.display="none";
-}
-
-
-const form = document.querySelector(".form-new");
-form.addEventListener("submit", addWork );
-
-
 //function colorValidate
 //const btnvalidate = document.getElementById("validate");
-
-
   // Si les 3 champs sont remplis
   //if (image !== "" && title !== "" && categorie !== "" ) {
     //Le bouton "Valider" aura le background-color vert 
 // btnvalidate.style.backgroundColor ="#1D6154";
 
-//Suppression de travaux existants
-
-/*//function refreshGallery (event) {
+//Fonction asynchrone des ajouts
+async function addWork(event) {
   event.preventDefault();
-  const token = localStorage.getItem("token");
-  const workId = event.target.dataset.workId;
-  //const gallery = document.querySelector(".gallery");
-  //const galleryModal = document.querySelector(".gallerymodal");
-
   
-  fetch('http://localhost:5678/api/works/${workId}', {
-    method: "DELETE",
-    headers: { 
-      //"Accept": "*/
-     // "Authorization": `Bearer ${token}`
-    //},
-  //})
+  const formData = new FormData(document.getElementById("form-new"));
+  const token = localStorage.getItem("token");
+  
+  if (!token) {
+    console.error("Token d'authentification manquant.");
+    alert("Vous devez être connecté pour ajouter un travail.");
+    return;
+  }
 
-  //.then((response) => {	
-   // if (response.status === 200){
-      //console.log("L'image a été supprimée avec succès.")
-      //return response.json();
-      //works.remove();
-      //document.querySelector(`figure[data-id="${workId}"]`).remove();
+  //console.log("Token:", token);
+  
+  try {
+    const resultat = await fetch('http://localhost:5678/api/works', {
+      method: "POST",
+      headers: {
+        'Authorization': 'Bearer ' + token
+      },
+      body: formData
+    });
+    
+    if (!resultat.ok) {
+      throw new Error('Erreur lors de l\'ajout du projet');
+    }
+    
+    const work = await resultat.json();
+    console.log(work);
+    
+    addWorkToGallery(work);
+    addWorkToModalGallery(work);
+    
+    modal1.style.display = "flex";
+    modal2.style.display = "none";
+  } catch (error) {
+    console.error('Erreur lors de l\'ajout du projet:', error);
+    alert("Une erreur est survenue lors de l'ajout du projet. Veuillez réessayer.");
+  }
+}
 
-      //const work = document.querySelectorAll(`figure[data-id="${workId}"]`);
-     // gallery.remove(work);
-      //galleryModal.remove(work);
+//Ajout Travaux dans la galerie principale
+function addWorkToGallery(work) {
+  const gallery = document.querySelector(".gallery");
+  const newWork = createWorkElement(work);
+  gallery.appendChild(newWork);
+}
 
-      //works.forEach (work => {
-      //  document.querySelectorAll(`figure[data-id="${workId}"]`);
-      //})
-      //
-      //console.log(work);
-      //work.remove();
+//Ajout Travaux dans la galerie de la modale
+function addWorkToModalGallery(work) {
+  const galleryModal = document.querySelector(".gallerymodal");
+  const newWorkModal = createWorkElement(work, true);
+  galleryModal.appendChild(newWorkModal);
+}
 
-      // Supprimer chaque élément de la galerie
-     // work.forEach(item => {
-        //item.parentNode.removeChild(item); 
-     // });
+//Fonction Création après le formulaire
+function createWorkElement(work, isModal = false) {
+  const newWork = document.createElement('figure');
+  newWork.setAttribute("workID", work.id);
+  newWork.dataset.workId = work.id;
 
-     
-   // } else if (response.status >= 401) {
-      //throw new Error ("Erreur, veuillez recommencer.")
-    //}
-  //})
+  const newImage = document.createElement('img');
+  newImage.src = work.imageUrl;
+  
+  const newTitle = document.createElement('figcaption');
+  newTitle.textContent = work.title;
 
- // .catch (error => {
-   // console.error('Erreur', error);
-    // alert("Une erreur est survenue. Veuillez recommencer.");
-  //});
-//}*/
+  newWork.appendChild(newImage);
+  newWork.appendChild(newTitle);
 
+  if (isModal) {
+    const trashIcon = document.createElement('i');
+    trashIcon.className = 'fa-solid fa-trash-can trash';
+    trashIcon.dataset.workId = work.id;
+    trashIcon.addEventListener('click', refreshGallery); 
+    newWork.appendChild(trashIcon);
+    console.log("Work ID:", work.id);
+  }
+
+  return newWork;
+}
+
+document.querySelector(".form-new").addEventListener("submit", addWork);
+
+//Fonction asynchrone galerie à jour
 async function refreshGallery(event) {
   event.preventDefault();
 
-  // Récupérer l'identifiant du projet à supprimer
-  const workId = event.target.dataset.workId;
-
-  // Récupérer le token d'authentification
+  const trashIcon = event.currentTarget;
+  const workId = trashIcon.dataset.workId;
   const token = localStorage.getItem("token");
 
+  if (!token) {
+    console.error("Token d'authentification manquant.");
+    alert("Vous devez être connecté pour supprimer un travail.");
+    return;
+  }
+
+  //console.log("Work ID:", workId);
+
   try {
-    // Effectuer une requête DELETE pour supprimer le projet
     const resultat = await fetch(`http://localhost:5678/api/works/${workId}`, {
       method: "DELETE",
       headers: {
@@ -356,22 +249,38 @@ async function refreshGallery(event) {
       }
     });
 
-    if (resultat.ok) {
-      
-      const work = await resultat.json();
-      console.log(work);
-      
-    } else {
-      console.error('Erreur lors de la suppression du projet:', resultat.status);
+    if (!resultat.ok) {
+      throw new Error('Erreur. La suppression du projet ne fonctionne pas.');
     }
-  } catch (erreur) {
-    console.error('Erreur lors de la requête DELETE:', erreur);
+
+    removeWorkFromGallery(workId);
+    removeWorkFromModalGallery(workId);
+  } catch (error) {
+    console.error('Erreur lors de la requête DELETE:', error);
+    alert("Une erreur est survenue lors de la suppression du projet. Veuillez réessayer.");
   }
 }
-//Chaque icône "poubelle" aura un évènement 
-//const deleteIcons = document.querySelectorAll(".trash");
-//deleteIcons.forEach(deleteIcon => {
- // deleteIcon.addEventListener("click", refreshGallery);
-//});
-//const deleteIcon = document.querySelector(".trash");
-//deleteIcon.addEventListener("click", refreshGallery);
+
+/*document.querySelectorAll('.trash').forEach(trashIcon => {
+  trashIcon.addEventListener('click', refreshGallery);
+});*/
+
+function removeWorkFromGallery(workId) {
+  const workElement = document.querySelector(`.gallery figure[workID="${workId}"]`);
+  if (workElement) {
+    workElement.remove();
+  }
+}
+
+function removeWorkFromModalGallery(workId) {
+  const workElement = document.querySelector(`.gallerymodal figure[workID="${workId}"]`);
+  if (workElement) {
+    workElement.remove();
+  }
+}
+
+/*document.querySelector('.gallerymodal').addEventListener('click', function(event) {
+  if (event.target.classList.contains('trash')) {
+    refreshGallery(event);
+  }
+});*/
