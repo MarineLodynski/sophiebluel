@@ -18,13 +18,16 @@ openModal.addEventListener('click', function () {
 
       function initGalleryModal() {
         const galleryModal = document.querySelector(".gallerymodal");
+        galleryModal.innerHTML = '';
         works.forEach(function(work) {
           let figureModal = document.createElement("figure");
+          figureModal.dataset.workID = work.id;
           const imageModal = document.createElement("img");
           const figcaptionModal = document.createElement("figcaption");
           let trashModal = document.createElement("i");
           trashModal.className= 'fa-solid fa-trash-can trash';
-          
+          trashModal.dataset.workId = work.id;
+          trashModal.addEventListener('click', deleteWork);
 
           imageModal.src=work.imageUrl;
           imageModal.alt=work.title;
@@ -61,6 +64,7 @@ window.onclick = function(event) {
 const modal1 = document.getElementById("modal1");
 const modal2 = document.getElementById("modal2");
 modal2.style.display="none";
+
 const newphotoBtn = document.querySelector(".newphoto");
 newphotoBtn.addEventListener('click', function (event_newphotoBtn) {
   event_newphotoBtn.preventDefault();
@@ -75,7 +79,7 @@ function updateCategories () {
   fetch('http://localhost:5678/api/categories', {
     method:'GET',
     headers : {
-    "Accept": "application/json",
+      "Accept": "application/json",
     } 
   })
 
@@ -115,7 +119,6 @@ function showPreview(event) {
     const imageIcon = document.querySelector(".image-icon");
     const indications = document.querySelector(".indications");
 
-
     // Vérification taille image (l'image ne doit pas dépasser 4mo)
     if (image.size > maxFileSize) {
       alert("Erreur : La taille de l'image dépasse la limite autorisée.");
@@ -143,7 +146,6 @@ function showPreview(event) {
 //Fonction asynchrone des ajouts
 async function addWork(event) {
   event.preventDefault();
-  
   const formData = new FormData(document.getElementById("form-new"));
   const token = localStorage.getItem("token");
   
@@ -152,8 +154,6 @@ async function addWork(event) {
     alert("Vous devez être connecté pour ajouter un travail.");
     return;
   }
-
-  //console.log("Token:", token);
   
   try {
     const resultat = await fetch('http://localhost:5678/api/works', {
@@ -169,8 +169,7 @@ async function addWork(event) {
     }
     
     const work = await resultat.json();
-    console.log(work);
-    
+    //console.log(work);
     addWorkToGallery(work);
     addWorkToModalGallery(work);
     
@@ -215,18 +214,17 @@ function createWorkElement(work, isModal = false) {
     const trashIcon = document.createElement('i');
     trashIcon.className = 'fa-solid fa-trash-can trash';
     trashIcon.dataset.workId = work.id;
-    trashIcon.addEventListener('click', refreshGallery); 
+    trashIcon.addEventListener('click', deleteWork); 
     newWork.appendChild(trashIcon);
-    console.log("Work ID:", work.id);
+    //console.log("Work ID:", work.id);
   }
 
   return newWork;
 }
-
 document.querySelector(".form-new").addEventListener("submit", addWork);
 
 //Fonction asynchrone galerie à jour
-async function refreshGallery(event) {
+async function deleteWork(event) {
   event.preventDefault();
 
   const trashIcon = event.currentTarget;
@@ -261,26 +259,16 @@ async function refreshGallery(event) {
   }
 }
 
-/*document.querySelectorAll('.trash').forEach(trashIcon => {
-  trashIcon.addEventListener('click', refreshGallery);
-});*/
-
 function removeWorkFromGallery(workId) {
-  const workElement = document.querySelector(`.gallery figure[workID="${workId}"]`);
+  const workElement = document.querySelector(`.gallery figure[data-work-id="${workId}"]`);
   if (workElement) {
     workElement.remove();
   }
 }
 
 function removeWorkFromModalGallery(workId) {
-  const workElement = document.querySelector(`.gallerymodal figure[workID="${workId}"]`);
+  const workElement = document.querySelector(`.gallerymodal figure[data-work-id="${workId}"]`);
   if (workElement) {
     workElement.remove();
   }
 }
-
-/*document.querySelector('.gallerymodal').addEventListener('click', function(event) {
-  if (event.target.classList.contains('trash')) {
-    refreshGallery(event);
-  }
-});*/
