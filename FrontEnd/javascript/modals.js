@@ -173,6 +173,16 @@ async function addWork(event) {
     addWorkToGallery(work);
     addWorkToModalGallery(work);
     
+    document.getElementById("form-new").reset();
+    const imagePreview = document.getElementById("imagePreview");
+    imagePreview.style.display = "none";
+    const btnAdd = document.querySelector(".btn-add");
+    const imageIcon = document.querySelector(".image-icon");
+    const indications = document.querySelector(".indications");
+    btnAdd.style.display = "block";
+    imageIcon.style.display = "block";
+    indications.style.display = "block";
+
     modal1.style.display = "flex";
     modal2.style.display = "none";
   } catch (error) {
