@@ -65,6 +65,13 @@ const modal1 = document.getElementById("modal1");
 const modal2 = document.getElementById("modal2");
 modal2.style.display="none";
 
+const arrow_left = document.querySelector(".arrow_left");
+arrow_left.addEventListener('click', function (event_arrow_left) {
+  event_arrow_left.preventDefault;
+  modal2.style.display="none";
+  modal1.style.display="flex";
+})
+
 const newphotoBtn = document.querySelector(".newphoto");
 newphotoBtn.addEventListener('click', function (event_newphotoBtn) {
   event_newphotoBtn.preventDefault();
@@ -169,9 +176,9 @@ async function addWork(event) {
     }
     
     const work = await resultat.json();
-    //console.log(work);
     addWorkToGallery(work);
     addWorkToModalGallery(work);
+
     
     document.getElementById("form-new").reset();
     const imagePreview = document.getElementById("imagePreview");

@@ -247,18 +247,18 @@ nav a {
 
   
 .modal-content {
-	position:relative;
+	position:relative; 
+	bottom: 800px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	background-color: white;
-	margin: 600px 405px 2037px 405px;
+	margin: 1440px 405px 2037px 405px;
 	padding: 20px;
 	border: 1px solid;
 	border-radius: 10px;
 	border-color:white;
 	width:630px;
-	
 }
  
 .modal-content h2 {
@@ -359,6 +359,13 @@ nav a {
 /* Fin Modale 1*/
 
 /* Modale 2*/
+
+.arrow_left {
+	position: absolute;
+    left: 30px;
+    top: 25px;
+	font-size:21px;
+}
 
 .form-new {
 	display: flex;
