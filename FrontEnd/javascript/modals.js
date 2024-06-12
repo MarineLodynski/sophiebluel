@@ -51,6 +51,7 @@ openModal.addEventListener('click', function () {
 // Fermer la fenêtre modale lorsque l'utilisateur clique sur le bouton de fermeture
 document.getElementsByClassName('close')[0].onclick = function() {
     document.getElementById('myModal').style.display = "none";
+    document.getElementById('modal2').style.display = "none";
 }
   
 // Fermer la fenêtre modale lorsque l'utilisateur clique en dehors de celle-ci
@@ -142,12 +143,7 @@ function showPreview(event) {
   }
 }
 
-//function colorValidate
-//const btnvalidate = document.getElementById("validate");
-  // Si les 3 champs sont remplis
-  //if (image !== "" && title !== "" && categorie !== "" ) {
-    //Le bouton "Valider" aura le background-color vert 
-// btnvalidate.style.backgroundColor ="#1D6154";
+//Fonction du bouton validate
 document.addEventListener('DOMContentLoaded', (event) => {
   const imageInput = document.getElementById('image');
   const titleInput = document.getElementById('title');
