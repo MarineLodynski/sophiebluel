@@ -10,7 +10,6 @@ async function RecupTravaux() {
 	})
 
 	.then ((works) => {
-		console.log(works);
 		//Ajout des travaux dans la galerie
 		function InitWorks() {
 			const gallery = document.querySelector(".gallery");
@@ -46,7 +45,6 @@ async function RecupTravaux() {
 				const FiltresTravaux = works.filter(function(work){
 					return work.categoryId === categoryId;
 				})
-				console.log(FiltresTravaux);
 				return FiltresTravaux;
 			}
 		}

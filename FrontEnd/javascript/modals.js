@@ -14,7 +14,6 @@ openModal.addEventListener('click', function () {
 	  })
 
 	  .then ((works) => {
-		  console.log(works);
 
       function initGalleryModal() {
         const galleryModal = document.querySelector(".gallerymodal");
@@ -149,6 +148,30 @@ function showPreview(event) {
   //if (image !== "" && title !== "" && categorie !== "" ) {
     //Le bouton "Valider" aura le background-color vert 
 // btnvalidate.style.backgroundColor ="#1D6154";
+document.addEventListener('DOMContentLoaded', (event) => {
+  const imageInput = document.getElementById('image');
+  const titleInput = document.getElementById('title');
+  const categorySelect = document.getElementById('category');
+  const btnValidate = document.getElementById('validate');
+
+  function colorValidate() {
+      const image = imageInput.value.trim();
+      const title = titleInput.value.trim();
+      const category = categorySelect.value;
+
+      // Vérifier si tous les champs sont remplis
+      if (image !== "" && title !== "" && category !== "") {
+          btnValidate.style.backgroundColor = "#1D6154";
+      } else {
+          btnValidate.style.backgroundColor = "#A7A7A7";
+      }
+  }
+
+  // Ajouter des écouteurs d'événements pour les champs de formulaire
+  imageInput.addEventListener('input', colorValidate);
+  titleInput.addEventListener('input', colorValidate);
+  categorySelect.addEventListener('change', colorValidate);
+});
 
 //Fonction asynchrone des ajouts
 async function addWork(event) {
@@ -233,7 +256,6 @@ function createWorkElement(work, isModal = false) {
     trashIcon.dataset.workId = work.id;
     trashIcon.addEventListener('click', deleteWork); 
     newWork.appendChild(trashIcon);
-    //console.log("Work ID:", work.id);
   }
 
   return newWork;
@@ -253,8 +275,6 @@ async function deleteWork(event) {
     alert("Vous devez être connecté pour supprimer un travail.");
     return;
   }
-
-  //console.log("Work ID:", workId);
 
   try {
     const resultat = await fetch(`http://localhost:5678/api/works/${workId}`, {
