@@ -55,6 +55,7 @@ async function RecupTravaux() {
 			console.log("Vous avez cliqué sur le bouton 'Tous' !");
 			let filteredAll = filtrerParCategorie(0);
 			displayFiltersWorks(filteredAll); 
+			ButtonColor(buttonAll); 
 		});
 
 		const buttonO= document.getElementById('objects');
@@ -62,6 +63,7 @@ async function RecupTravaux() {
 			console.log("Vous avez cliqué sur le bouton 'Objets' !");
 			let filtered = filtrerParCategorie(1);
 			displayFiltersWorks(filtered); 
+			ButtonColor(buttonO); 
 		});
 
 
@@ -70,14 +72,45 @@ async function RecupTravaux() {
 			console.log("Vous avez cliqué sur le bouton 'Appartements' !");
 			let filteredA = filtrerParCategorie(2);
 			displayFiltersWorks(filteredA); 
+			ButtonColor(buttonA); 
 		});
 
 		const buttonH = document.getElementById('hr');
 		buttonH.addEventListener('click', function(event_hr) {
 			console.log("Vous avez cliqué sur le bouton 'Hôtels & Restaurants' !");
 			let filteredHr = filtrerParCategorie(3);
-			displayFiltersWorks(filteredHr); 
+			displayFiltersWorks(filteredHr);
+			ButtonColor(buttonH); 
 		});
+
+		function ButtonColor(clickedButton) {
+			// Couleurs de base
+			const defaultBackgroundColor = '#FFFEF8';
+			const defaultColor = '#1D6154';
+		
+			// Vérifie si le bouton est déjà actif
+			const isActive = clickedButton.classList.contains('active');
+		
+			// Tous les boutons auront ces couleurs avant l'événement 'click'
+			buttonAll.style.backgroundColor = defaultBackgroundColor;
+			buttonO.style.backgroundColor = defaultBackgroundColor;
+			buttonA.style.backgroundColor = defaultBackgroundColor;
+			buttonH.style.backgroundColor = defaultBackgroundColor;
+			
+			buttonAll.style.color = defaultColor;
+			buttonO.style.color = defaultColor;
+			buttonA.style.color = defaultColor;
+			buttonH.style.color = defaultColor;
+		
+			// Si l'on clique sur le bouton, les couleurs vont changer
+			if (!isActive) {
+				clickedButton.style.backgroundColor = "#1D6154";
+				clickedButton.style.color = "white";
+				clickedButton.classList.add('active');
+			} else {
+				clickedButton.classList.remove('active');
+			}
+		}
 
 	});
 }
